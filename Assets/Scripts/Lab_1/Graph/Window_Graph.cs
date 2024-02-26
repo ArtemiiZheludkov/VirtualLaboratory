@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using TMPro;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using VirtualLaboratory;
 
 public class Window_Graph : MonoBehaviour
@@ -19,7 +20,9 @@ public class Window_Graph : MonoBehaviour
     [SerializeField] private RectTransform _dashTemplateY;
     
     [Header("Ln")] [SerializeField] private Toggle _LnToggle;
-    [SerializeField] private TMP_Text _textCelsium;
+    [SerializeField] private RectTransform _textCelsium;
+
+    [Header("Table")] [SerializeField] private Table _table;
 
     private List<GameObject> _gameObjectList;
 
@@ -51,37 +54,42 @@ public class Window_Graph : MonoBehaviour
             _gameObjectList.Clear();
         }
         
-        _nextT = Mathf.RoundToInt(startT);
-        SetMinMaxY(minR, maxR);
-        
         _gameObjectList = new List<GameObject>();
         _resistanceList = new List<float>();
         _temperatureList = new List<float>();
         _resistanceList_Ln = new List<float>();
         _temperatureList_1T = new List<float>();
+        
+        _nextT = Mathf.RoundToInt(startT);
+        UpdateBordersY(minR, maxR);
+        
+        _table.Init();
     }
     
     public void AddPoint(float R, float T)
     {
         if (_nextT > T)
             return;
-		
-        if (R > _maxR)
-            SetMinMaxY(_minR, R);
-        else if (R < _minR)
-            SetMinMaxY(R, _maxR);
         
         _nextT += 2;
         _resistanceList.Add(R);
         _temperatureList.Add(T);
         _resistanceList_Ln.Add(Mathf.Log(R));
-        Debug.Log(Mathf.Log(R));
-        _temperatureList_1T.Add((1 / (T + 273)) * Mathf.Pow(10, 3));
+        _temperatureList_1T.Add((1 / (T + 273.0f)) * Mathf.Pow(10, 3));
+        
+        if (R > _maxR || R < _minR) 
+            UpdateBordersY(R, R);
 
         if (_LnToggle.isOn == true)
+        {
+            _resistanceList_Ln.Sort();
+            _temperatureList_1T.Sort();
             UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
+        }
         else
             UpdateGraph(_resistanceList, _temperatureList, _yMaximum, _yMinimum);
+        
+        _table.AddRow(T, R);
     }
 
     private void OnToggleChanged(bool activated)
@@ -90,29 +98,45 @@ public class Window_Graph : MonoBehaviour
             return;
         
         if (activated == true)
+        {
+            _resistanceList_Ln.Sort();
+            _temperatureList_1T.Sort();
             UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
+        }
         else
             UpdateGraph(_resistanceList, _temperatureList, _yMaximum, _yMinimum);
         
         _textCelsium.gameObject.SetActive(!activated);
     }
 
-    private void SetMinMaxY(float minR, float maxR)
+    private void UpdateBordersY(float minR = 0f, float maxR = 1f)
 	{
-		_minR = minR;
-        _maxR = maxR;
+        if (_resistanceList.Count < 2)
+        {
+            _minR = minR;
+            _maxR = maxR;
+        }
+        else
+        {
+            _minR = _resistanceList.Min();
+            _maxR = _resistanceList.Max();
+        }
 		
 		float yDifference = _maxR - _minR;
         
         if (yDifference <= 0)
             yDifference = 5f;
         
-        _yMaximum = _maxR + (yDifference * 0.2f);
-        _yMinimum = _minR - (yDifference * 0.2f);
-
+        _yMaximum = _maxR + (yDifference * 0.1f);
+        _yMinimum = _minR - (yDifference * 0.1f);
+        
         _yMaximumLn = Mathf.Log(_yMaximum);
-        _yMinimumLn = Mathf.Log(_yMinimum);
-	}
+        
+        if (_yMinimum < 0.1f)
+            _yMinimumLn = _minR - (_minR * 0.1f);
+        else
+            _yMinimumLn = Mathf.Log(_yMinimum);
+    }
 
     private void UpdateGraph(List<float> R, List<float> T, float yMax, float yMin)
     {
@@ -141,7 +165,7 @@ public class Window_Graph : MonoBehaviour
             RectTransform labelX = Instantiate(_labelTemplateX, _labelContainer, false);
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, -7f);
-            labelX.GetComponent<TMP_Text>().text = T[i].ToString("F1");
+            labelX.GetComponent<TMP_Text>().text = T[i].ToString("F2");
             _gameObjectList.Add(labelX.gameObject);
             
             RectTransform dashX = Instantiate(_dashTemplateX, _dashContainer, false);
