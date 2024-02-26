@@ -287,6 +287,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LAB_1_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2564646999776318959, guid: ff8a4ac9200ea5a4197432882e250db2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25.469238
+      objectReference: {fileID: 0}
     - target: {fileID: 3311189099210056194, guid: ff8a4ac9200ea5a4197432882e250db2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -449,6 +453,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6395510916255939842, guid: ff8a4ac9200ea5a4197432882e250db2, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506569168999932719, guid: ff8a4ac9200ea5a4197432882e250db2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7073287190644031959, guid: ff8a4ac9200ea5a4197432882e250db2, type: 3}

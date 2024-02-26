@@ -38,8 +38,8 @@ namespace VirtualLaboratory
         
         public void HideTooltip() => _tooltip.SetActive(false);
         
-        public  void OnPointerEnter(PointerEventData eventData) => ShowTooltip();
+        public void OnPointerEnter(PointerEventData eventData) => ShowTooltip();
         
-        public  void OnPointerExit(PointerEventData eventData) => HideTooltip();
+        public void OnPointerExit(PointerEventData eventData) => HideTooltip();
     }
 }

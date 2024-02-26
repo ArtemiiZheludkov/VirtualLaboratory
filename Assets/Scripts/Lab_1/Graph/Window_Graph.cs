@@ -21,8 +21,14 @@ public class Window_Graph : MonoBehaviour
     
     [Header("Ln")] [SerializeField] private Toggle _LnToggle;
     [SerializeField] private RectTransform _textCelsium;
+    [SerializeField] private TMP_Text R_text;
 
     [Header("Table")] [SerializeField] private Table _table;
+    
+    [Header("LSM")] [SerializeField] private Toggle _LSMToggle;
+    [SerializeField] private Image _LSMLine;
+    [SerializeField] private TMP_Text _a;
+    [SerializeField] private TMP_Text _b;
 
     private List<GameObject> _gameObjectList;
 
@@ -40,7 +46,8 @@ public class Window_Graph : MonoBehaviour
 
     private void Start()
     {
-        _LnToggle.onValueChanged.AddListener(OnToggleChanged);
+        _LnToggle.onValueChanged.AddListener(OnLnToggle);
+        _LSMToggle.onValueChanged.AddListener(OnLSMToggle);
         _textCelsium.gameObject.SetActive(true);
     }
 
@@ -64,6 +71,12 @@ public class Window_Graph : MonoBehaviour
         UpdateBordersY(minR, maxR);
         
         _table.Init();
+        
+        _a.text = "---";
+        _b.text = "---";
+
+        _LnToggle.isOn = false;
+        _LSMToggle.isOn = false;
     }
     
     public void AddPoint(float R, float T)
@@ -87,12 +100,14 @@ public class Window_Graph : MonoBehaviour
             UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
         }
         else
+        {
             UpdateGraph(_resistanceList, _temperatureList, _yMaximum, _yMinimum);
+        }
         
         _table.AddRow(T, R);
     }
 
-    private void OnToggleChanged(bool activated)
+    private void OnLnToggle(bool activated)
     {
         if (_resistanceList == null)
             return;
@@ -102,38 +117,69 @@ public class Window_Graph : MonoBehaviour
             _resistanceList_Ln.Sort();
             _temperatureList_1T.Sort();
             UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
+
+            R_text.text = "LnR (Om)";
         }
         else
+        {
             UpdateGraph(_resistanceList, _temperatureList, _yMaximum, _yMinimum);
+            R_text.text = "R (Om)";
+        }
         
         _textCelsium.gameObject.SetActive(!activated);
     }
 
+    private void OnLSMToggle(bool activated)
+    {
+        if (activated == true)
+        {
+            if (_LnToggle.isOn == true)
+            {
+                _resistanceList_Ln.Sort();
+                _temperatureList_1T.Sort();
+                UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
+            }
+            else
+            {
+                UpdateGraph(_resistanceList, _temperatureList, _yMaximum, _yMinimum);
+            }
+        }
+        else
+        {
+            _a.text = "---";
+            _b.text = "---";
+            _LSMLine.gameObject.SetActive(false);
+        }
+    }
+
     private void UpdateBordersY(float minR = 0f, float maxR = 1f)
-	{
+    {
         if (_resistanceList.Count < 2)
         {
             _minR = minR;
             _maxR = maxR;
+            
+            float yDifference = _maxR - _minR;
+        
+            if (yDifference <= 0)
+                yDifference = 5f;
+        
+            _yMaximum = _maxR + (yDifference * 0.1f);
+            _yMinimum = _minR - (yDifference * 0.1f);
         }
         else
         {
             _minR = _resistanceList.Min();
             _maxR = _resistanceList.Max();
+            
+            _yMaximum = _maxR + (_maxR * 0.1f);
+            _yMinimum = _minR - (_minR * 0.25f);
         }
-		
-		float yDifference = _maxR - _minR;
-        
-        if (yDifference <= 0)
-            yDifference = 5f;
-        
-        _yMaximum = _maxR + (yDifference * 0.1f);
-        _yMinimum = _minR - (yDifference * 0.1f);
         
         _yMaximumLn = Mathf.Log(_yMaximum);
-        
+
         if (_yMinimum < 0.1f)
-            _yMinimumLn = _minR - (_minR * 0.1f);
+            _yMinimumLn = _yMinimum;
         else
             _yMinimumLn = Mathf.Log(_yMinimum);
     }
@@ -165,7 +211,12 @@ public class Window_Graph : MonoBehaviour
             RectTransform labelX = Instantiate(_labelTemplateX, _labelContainer, false);
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, -7f);
-            labelX.GetComponent<TMP_Text>().text = T[i].ToString("F2");
+
+            if (i == 0 || R.Count < 2 || i % 2 == 0 || i == R.Count - 1)
+                labelX.GetComponent<TMP_Text>().text = T[i].ToString("F2");
+            else
+                labelX.GetComponent<TMP_Text>().text = "";
+            
             _gameObjectList.Add(labelX.gameObject);
             
             RectTransform dashX = Instantiate(_dashTemplateX, _dashContainer, false);
@@ -185,13 +236,49 @@ public class Window_Graph : MonoBehaviour
             
             float normalizedValue = i * 1f / separatorCount;
             labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
-            labelY.GetComponent<TMP_Text>().text = (yMin + (normalizedValue * (yMax - yMin))).ToString("F2");
+            
+            if (i == 0 || i % 2 == 0 || i == separatorCount)
+                labelY.GetComponent<TMP_Text>().text = (yMin + (normalizedValue * (yMax - yMin))).ToString("F2");
+            else
+                labelY.GetComponent<TMP_Text>().text = "";
+            
             _gameObjectList.Add(labelY.gameObject);
             
             RectTransform dashY = Instantiate(_dashTemplateY, _dashContainer, false);
             dashY.gameObject.SetActive(true);
             dashY.anchoredPosition = new Vector2(-4f, normalizedValue * graphHeight);
             _gameObjectList.Add(dashY.gameObject);
+        }
+
+        if (_LSMToggle.isOn == true)
+        {
+            if (_resistanceList.Count < 2)
+                return;
+            
+            float a, b;
+            LinearRegressionCalculation(R, T, out a, out b);
+            
+            _a.text = a.ToString();
+            _b.text = b.ToString();
+
+            float x1 = xSize;
+            float x2 = xSize + (R.Count  - 1) * xSize;
+            float y1 = a * T[0] + b;
+            float y2 = a * T[^1] + b;
+            
+            Vector2 A = new Vector2(x1, ((y1 - yMin) / (yMax - yMin)) * graphHeight);
+            Vector2 B = new Vector2(x2, ((y2 - yMin) / (yMax - yMin)) * graphHeight);
+
+            RectTransform rectTransform = _LSMLine.GetComponent<RectTransform>();
+            rectTransform.anchorMin = new Vector2(0, 0);
+            rectTransform.anchorMax = new Vector2(0, 0);
+            rectTransform.anchoredPosition = A;
+            rectTransform.sizeDelta = new Vector2(Vector3.Distance(A, B), 5f);
+            
+            float angle = Mathf.Atan2(B.y - A.y, B.x - A.x) * Mathf.Rad2Deg;
+            rectTransform.rotation = Quaternion.Euler(0, 0, angle);
+            
+            _LSMLine.gameObject.SetActive(true);
         }
     }
 
@@ -200,5 +287,18 @@ public class Window_Graph : MonoBehaviour
         GraphPoint point = Instantiate(_point);
         point.Init(_graphContainer, anchoredPosition, _resistanceList[index], _temperatureList[index]);
         return point.gameObject;
+    }
+    
+    private void LinearRegressionCalculation(List<float> Y, List<float> X, out float a, out float b)
+    {
+        int n = X.Count;
+        
+        float sumX = X.Sum();
+        float sumY = Y.Sum();
+        float sumXY = X.Zip(Y, (x, y) => x * y).Sum();
+        float sumXSquare = X.Sum(x => x * x);
+        
+        a = (n * sumXY - sumX * sumY) / (n * sumXSquare - sumX * sumX);
+        b = (sumY - a * sumX) / n;
     }
 }
