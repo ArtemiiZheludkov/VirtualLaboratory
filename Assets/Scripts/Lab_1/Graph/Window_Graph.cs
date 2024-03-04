@@ -273,7 +273,7 @@ public class Window_Graph : MonoBehaviour
             rectTransform.anchorMin = new Vector2(0, 0);
             rectTransform.anchorMax = new Vector2(0, 0);
             rectTransform.anchoredPosition = A;
-            rectTransform.sizeDelta = new Vector2(Vector3.Distance(A, B), 5f);
+            rectTransform.sizeDelta = new Vector2(Vector3.Distance(A, B + (B * 0.2f)), 7f);
             
             float angle = Mathf.Atan2(B.y - A.y, B.x - A.x) * Mathf.Rad2Deg;
             rectTransform.rotation = Quaternion.Euler(0, 0, angle);
