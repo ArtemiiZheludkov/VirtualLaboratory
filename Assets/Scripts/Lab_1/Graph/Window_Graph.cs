@@ -87,7 +87,7 @@ public class Window_Graph : MonoBehaviour
         _resistanceList.Add(R);
         _temperatureList.Add(T);
         _resistanceList_Ln.Add(Mathf.Log(R));
-        _temperatureList_1T.Add((1 / (T + 273.0f)) * Mathf.Pow(10, 3));
+        _temperatureList_1T.Add((1 / T) * Mathf.Pow(10, 3));
         
         if (R > _maxR || R < _minR) 
             UpdateBordersY(R, R);
@@ -117,7 +117,7 @@ public class Window_Graph : MonoBehaviour
             _temperatureList_1T.Sort();
             UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
 
-            T_text.text = "1/T (K)*10^3";
+            T_text.text = "1/T (K)*10<sup>3</sup>";
             R_text.text = "LnR (Om)";
         }
         else
