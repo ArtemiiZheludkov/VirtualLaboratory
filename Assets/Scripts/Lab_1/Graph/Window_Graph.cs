@@ -20,7 +20,7 @@ public class Window_Graph : MonoBehaviour
     [SerializeField] private RectTransform _dashTemplateY;
     
     [Header("Ln")] [SerializeField] private Toggle _LnToggle;
-    [SerializeField] private RectTransform _textCelsium;
+    [SerializeField] private TMP_Text T_text;
     [SerializeField] private TMP_Text R_text;
 
     [Header("Table")] [SerializeField] private Table _table;
@@ -48,7 +48,6 @@ public class Window_Graph : MonoBehaviour
     {
         _LnToggle.onValueChanged.AddListener(OnLnToggle);
         _LSMToggle.onValueChanged.AddListener(OnLSMToggle);
-        _textCelsium.gameObject.SetActive(true);
     }
 
     public void Init(float minR, float maxR, float startT)
@@ -118,15 +117,15 @@ public class Window_Graph : MonoBehaviour
             _temperatureList_1T.Sort();
             UpdateGraph(_resistanceList_Ln, _temperatureList_1T, _yMaximumLn, _yMinimumLn);
 
+            T_text.text = "1/T (K)*10^3";
             R_text.text = "LnR (Om)";
         }
         else
         {
             UpdateGraph(_resistanceList, _temperatureList, _yMaximum, _yMinimum);
+            T_text.text = "T (K)";
             R_text.text = "R (Om)";
         }
-        
-        _textCelsium.gameObject.SetActive(!activated);
     }
 
     private void OnLSMToggle(bool activated)

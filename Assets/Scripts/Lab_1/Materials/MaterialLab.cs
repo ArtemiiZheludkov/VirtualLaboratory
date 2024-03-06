@@ -23,8 +23,8 @@ namespace VirtualLaboratory
         
         public void Init(float startTemperature)
         {
-            Temperature = startTemperature;
-            _startT = startTemperature;
+            Temperature = startTemperature + 273f;
+            _startT = startTemperature + 273f;
             SetResistance();
         }
 
@@ -37,8 +37,7 @@ namespace VirtualLaboratory
             }
             else if (_material == MaterialType.Semiconductor)
             {
-                float Tkelv = 273 + Temperature;
-                Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Tkelv));
+                Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Temperature));
                 //Resistance = r * (_l / _s);
                 //Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Tkelv));
             }
@@ -46,7 +45,7 @@ namespace VirtualLaboratory
 
         public void SetTemperature(float T)
         {
-            Temperature = T;
+            Temperature = T + 273f;
         }
 
         public float ResistanceAtMaxTemperature(float maxT)
