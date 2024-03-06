@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace VirtualLaboratory
 {
-    public class Thermostat : MonoBehaviour
+    public class Thermostat : CurrentInput
     {
         [SerializeField] private DigitalMeasurer _voltmeter;
 
@@ -52,7 +52,7 @@ namespace VirtualLaboratory
             }
         }
 
-        public void SetCurrent(float current)
+        public override void SetCurrent(float current)
         {
             _currentI = current;
             UpdateResistance();

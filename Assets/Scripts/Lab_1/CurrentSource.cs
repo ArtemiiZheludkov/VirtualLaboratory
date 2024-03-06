@@ -12,7 +12,7 @@ namespace VirtualLaboratory
         [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _maxI;
         [SerializeField] private ScaleMeasurer _ammeter;
-        [SerializeField] private Thermostat _output;
+        [SerializeField] private CurrentInput _output;
 
         private float _currentI;
         
