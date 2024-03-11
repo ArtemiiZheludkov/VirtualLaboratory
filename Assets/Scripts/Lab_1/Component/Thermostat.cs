@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VirtualLaboratory
+namespace VirtualLaboratory.Lab1
 {
     public class Thermostat : CurrentInput
     {
@@ -29,9 +29,9 @@ namespace VirtualLaboratory
             float lastR = _currentMaterial.ResistanceAtMaxTemperature(maxT);
 
             if (_currentMaterial.Type == MaterialType.Metal) 
-                _windowGraph.Init(_currentMaterial.Resistance, lastR, _currentMaterial.Temperature);
+                _windowGraph.Init(_currentMaterial.Resistance, lastR, _currentMaterial.Temperature, _currentMaterial.Type);
             else if (_currentMaterial.Type == MaterialType.Semiconductor) 
-                _windowGraph.Init(lastR, _currentMaterial.Resistance, _currentMaterial.Temperature);
+                _windowGraph.Init(lastR, _currentMaterial.Resistance, _currentMaterial.Temperature, _currentMaterial.Type);
             
             UpdateGraph();
         }

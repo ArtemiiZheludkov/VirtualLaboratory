@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace VirtualLaboratory
+namespace VirtualLaboratory.Lab1
 {
     [Serializable]
     public class MaterialLab
@@ -32,14 +32,12 @@ namespace VirtualLaboratory
         {
             if (_material == MaterialType.Metal)
             {
-                float r = _resistivity * (1 + _koefTemperature * (Temperature - _startT));
+                float r = _resistivity + _resistivity * _koefTemperature * (Temperature - _startT);
                 Resistance = r * (_l / _s);
             }
             else if (_material == MaterialType.Semiconductor)
             {
                 Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Temperature));
-                //Resistance = r * (_l / _s);
-                //Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Tkelv));
             }
         }
 
@@ -51,19 +49,16 @@ namespace VirtualLaboratory
         public float ResistanceAtMaxTemperature(float maxT)
         {
             float R = 0f;
+            float Tkelv = 273 + maxT;
             
             if (_material == MaterialType.Metal)
             {
-                float r = _resistivity * (1 + _koefTemperature * (Temperature - _startT));
+                float r = _resistivity + _resistivity * _koefTemperature * (Tkelv - _startT);
                 R = r * (_l / _s);
             }
             else if (_material == MaterialType.Semiconductor)
             {
-                float Tkelv = 273 + maxT;
                 Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Tkelv));
-                //R = _resistivity * Mathf.Exp(_koefTemperature * ((1f / (maxT + 273)) - (1f / (_startT + 273))));
-                //float r = _resistivity * (1 - _koefTemperature * (Temperature - _startT));
-                //R = r * (_l / _s);
             }
 
             return R;

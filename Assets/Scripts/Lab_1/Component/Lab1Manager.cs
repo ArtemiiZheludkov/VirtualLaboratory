@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace VirtualLaboratory
+namespace VirtualLaboratory.Lab1
 {
     public class Lab1Manager : MonoBehaviour
     {

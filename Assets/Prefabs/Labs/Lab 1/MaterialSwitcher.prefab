@@ -123,7 +123,7 @@ MonoBehaviour:
   - _material: 1
     _buttonName: "\u041D\u041F"
     _koefTemperature: 1.567e-19
-    _resistivity: 0.000000936
+    _resistivity: 0.0000016
     _l: 0.015
     _s: 0.000000049
   _buttonPrefab: {fileID: 4581805578240437700, guid: cf14adaea3938de4ea4754a28d0944c4, type: 3}
