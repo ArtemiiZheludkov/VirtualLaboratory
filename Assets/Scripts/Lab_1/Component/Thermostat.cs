@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VirtualLaboratory
+namespace VirtualLaboratory.Lab1
 {
-    public class Thermostat : MonoBehaviour
+    public class Thermostat : CurrentInput
     {
         [SerializeField] private DigitalMeasurer _voltmeter;
 
@@ -14,6 +14,8 @@ namespace VirtualLaboratory
         [SerializeField] private Image _semiconductorIcon;
 
         [SerializeField] private Window_Graph _windowGraph;
+
+        [SerializeField] private Noiser _noiser;
         
         private float _currentI;
         private MaterialLab _currentMaterial;
@@ -29,11 +31,12 @@ namespace VirtualLaboratory
             float lastR = _currentMaterial.ResistanceAtMaxTemperature(maxT);
 
             if (_currentMaterial.Type == MaterialType.Metal) 
-                _windowGraph.Init(_currentMaterial.Resistance, lastR, _currentMaterial.Temperature);
+                _windowGraph.Init(_currentMaterial.Resistance, lastR, _currentMaterial.Temperature, _currentMaterial.Type);
             else if (_currentMaterial.Type == MaterialType.Semiconductor) 
-                _windowGraph.Init(lastR, _currentMaterial.Resistance, _currentMaterial.Temperature);
+                _windowGraph.Init(lastR, _currentMaterial.Resistance, _currentMaterial.Temperature, _currentMaterial.Type);
             
             UpdateGraph();
+            _noiser.Init();
         }
 
         public void SetMaterial(MaterialLab currentMaterial)
@@ -52,7 +55,7 @@ namespace VirtualLaboratory
             }
         }
 
-        public void SetCurrent(float current)
+        public override void SetCurrent(float current)
         {
             _currentI = current;
             UpdateResistance();
@@ -68,7 +71,7 @@ namespace VirtualLaboratory
         public void UpdateGraph()
         {
             if (_currentI > 0.1f)
-                _windowGraph.AddPoint(_currentMaterial.Resistance, _currentMaterial.Temperature);
+                _windowGraph.AddPoint(_currentMaterial.Resistance + _noiser.GetNoise(_currentMaterial.Resistance), _currentMaterial.Temperature);
             else
                 Debug.Log("0");//_windowGraph.AddPoint(0f, _currentMaterial.Temperature);
         }
