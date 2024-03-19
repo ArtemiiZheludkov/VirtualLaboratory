@@ -14,6 +14,8 @@ namespace VirtualLaboratory.Lab1
         [SerializeField] private Image _semiconductorIcon;
 
         [SerializeField] private Window_Graph _windowGraph;
+
+        [SerializeField] private Noiser _noiser;
         
         private float _currentI;
         private MaterialLab _currentMaterial;
@@ -34,6 +36,7 @@ namespace VirtualLaboratory.Lab1
                 _windowGraph.Init(lastR, _currentMaterial.Resistance, _currentMaterial.Temperature, _currentMaterial.Type);
             
             UpdateGraph();
+            _noiser.Init();
         }
 
         public void SetMaterial(MaterialLab currentMaterial)
@@ -68,7 +71,7 @@ namespace VirtualLaboratory.Lab1
         public void UpdateGraph()
         {
             if (_currentI > 0.1f)
-                _windowGraph.AddPoint(_currentMaterial.Resistance, _currentMaterial.Temperature);
+                _windowGraph.AddPoint(_currentMaterial.Resistance + _noiser.GetNoise(_currentMaterial.Resistance), _currentMaterial.Temperature);
             else
                 Debug.Log("0");//_windowGraph.AddPoint(0f, _currentMaterial.Temperature);
         }

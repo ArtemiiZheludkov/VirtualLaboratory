@@ -195,7 +195,7 @@ namespace VirtualLaboratory.Lab1
                 labelX.anchoredPosition = new Vector2(xPosition, -7f);
 
                 if (i == 0 || R.Count < 2 || i % 2 == 0 || i == R.Count - 1)
-                    labelX.GetComponent<TMP_Text>().text = T[i].ToString("F2");
+                    labelX.GetComponent<TMP_Text>().text = T[i].ToString("0.##");
                 else
                     labelX.GetComponent<TMP_Text>().text = "";
                 
@@ -220,7 +220,7 @@ namespace VirtualLaboratory.Lab1
                 labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
                 
                 if (i == 0 || i % 2 == 0 || i == separatorCount)
-                    labelY.GetComponent<TMP_Text>().text = (yMin + (normalizedValue * (yMax - yMin))).ToString("F2");
+                    labelY.GetComponent<TMP_Text>().text = (yMin + (normalizedValue * (yMax - yMin))).ToString("0.##");
                 else
                     labelY.GetComponent<TMP_Text>().text = "";
                 
