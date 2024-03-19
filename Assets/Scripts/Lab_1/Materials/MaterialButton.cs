@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VirtualLaboratory
+namespace VirtualLaboratory.Lab1
 {
     public class MaterialButton : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace VirtualLaboratory
+namespace VirtualLaboratory.Lab1
 {
     public class GraphPoint : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
