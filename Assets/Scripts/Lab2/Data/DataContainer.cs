@@ -26,6 +26,10 @@ namespace VirtualLaboratory.Lab2
             LoadData();
         }
 
+        public float GetDataUz(int index) => Uz[index];
+
+        public float GetDataIz(float Ip, int index) => Iz[(int)(Ip*100)][index];
+
         private void LoadData()
         {
             Uz = _dataProvider.GetData(_variant, "Uz(V)");
