@@ -108,9 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _variants:
   - FullName: "\u0412\u0430\u0440\u0456\u0430\u043D\u0442 1"
-    ButtonName: "\u0412 1"
+    ButtonName: B 1
   - FullName: "\u0412\u0430\u0440\u0456\u0430\u043D\u0442 2"
-    ButtonName: "\u0412 2"
+    ButtonName: B 2
   _buttonPrefab: {fileID: -4548422044073781370, guid: 38d1b9fd10979444eaf3289d8465391e, type: 3}
   _buttonsParent: {fileID: 2196334367033468490}
   _variantText: {fileID: 3305590071593806309}

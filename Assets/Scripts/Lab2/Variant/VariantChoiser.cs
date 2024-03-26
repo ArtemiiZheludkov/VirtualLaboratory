@@ -5,15 +5,16 @@ namespace VirtualLaboratory.Lab2
 {
     public class VariantChoiser : MonoBehaviour
     {
+        public int Variant { get; private set; }
+
         [Header("MATERIAL SETTINGS")]
         [SerializeField] private Variant[] _variants;
         [SerializeField] private VariantButton _buttonPrefab;
         [SerializeField] private Transform _buttonsParent;
         [SerializeField] private TMP_Text _variantText;
-
-        private Variant _variant;
-        private VariantButton[] _buttons;
         
+        private VariantButton[] _buttons;
+
         public void Init()
         {
             CreateButtons();
@@ -23,22 +24,32 @@ namespace VirtualLaboratory.Lab2
 
         public void Enable()
         {
+            foreach (VariantButton variant in _buttons)
+                variant.gameObject.SetActive(true);
+            
             _variantText.gameObject.SetActive(false);
         }
 
         public void Disable()
         {
+            foreach (VariantButton variant in _buttons)
+                variant.gameObject.SetActive(false);
+            
             _variantText.gameObject.SetActive(true);
-            _variantText.text = _variant.FullName;
+            _variantText.text = _variants[Variant - 1].FullName;
         }
 
         public void SetVariant(VariantButton buttonCall)
         {
-            foreach (VariantButton button in _buttons)
-                button.Disable();
-            
+            for (int i = 0; i < _buttons.Length; i++)
+            {
+                if (ReferenceEquals(_buttons[i], buttonCall) == true)
+                    Variant = i + 1;
+                else
+                    _buttons[i].Disable();
+            }
+
             buttonCall.Enable();
-            _variant = buttonCall.Variant;
         }
 
         private void CreateButtons()

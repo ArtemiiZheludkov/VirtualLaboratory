@@ -236,6 +236,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4075439386851274850}
+  - component: {fileID: 8347312433772905958}
+  - component: {fileID: 6957262532182996665}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -264,6 +266,39 @@ RectTransform:
   m_AnchoredPosition: {x: -272, y: -30}
   m_SizeDelta: {x: 1000, y: 350}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &8347312433772905958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095742751567082526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3d57db04cb4da2a198cbe9312acee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _variantChoiser: {fileID: 1754821972153054696}
+  _experimentController: {fileID: 6957262532182996665}
+  _blockPanel: {fileID: 5137404673692098774}
+  _start: {fileID: 5119529356065219915}
+  _stop: {fileID: 2162723577607816208}
+--- !u!114 &6957262532182996665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2095742751567082526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74020850398844439f4ad696f2e2dd88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _updateTime: 0.5
+  _dataView:
+    _UzMeasurer: {fileID: 7142379162060869774}
+    _IzMeasurer: {fileID: 8366645934911260652}
 --- !u!1 &2538201778925126660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1784,11 +1819,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 262842044908065057}
-  - {fileID: 8519774630852896140}
   - {fileID: 4709813584380517885}
+  - {fileID: 8519774630852896140}
+  - {fileID: 7007259916776731374}
   - {fileID: 2428465479486006393}
   - {fileID: 1393711497430329020}
-  - {fileID: 7007259916776731374}
   m_Father: {fileID: 238368056371768689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7427895242935272275
@@ -2505,7 +2540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_Name
-      value: voltmeter_1
+      value: amper_Ip
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_IsActive
@@ -2663,7 +2698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_Name
-      value: voltmeter_2
+      value: startExp
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_IsActive
@@ -2831,7 +2866,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_Name
-      value: voltmeter
+      value: volt_Uz
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_IsActive
@@ -2938,6 +2973,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
+--- !u!114 &7142379162060869774 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2486149998971691269, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
+  m_PrefabInstance: {fileID: 4728287310976774539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb923e532214c8bbdf6220f4e6190ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8519774630852896140 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4008786009698259975, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
@@ -2957,7 +3003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_Name
-      value: voltmeter_Ampermetr
+      value: amper_Iz
       objectReference: {fileID: 0}
     - target: {fileID: 2573831208177261183, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
       propertyPath: m_IsActive
@@ -3077,6 +3123,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4008786009698259975, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
   m_PrefabInstance: {fileID: 6241101117381519081}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8366645934911260652 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2486149998971691269, guid: 941fc886eab5e984cbd85e0814b1b1e4, type: 3}
+  m_PrefabInstance: {fileID: 6241101117381519081}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb923e532214c8bbdf6220f4e6190ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8441986305886287318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3481,6 +3538,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82aec50cf3d811d4d89d1aa8d9d3ec5d, type: 3}
+--- !u!114 &1754821972153054696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7241769522587470309, guid: 82aec50cf3d811d4d89d1aa8d9d3ec5d, type: 3}
+  m_PrefabInstance: {fileID: 8945712685017218061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77318ef9f11f4f5a84cd53acdc8cab8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6913664035116939255 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2582755584581422074, guid: 82aec50cf3d811d4d89d1aa8d9d3ec5d, type: 3}

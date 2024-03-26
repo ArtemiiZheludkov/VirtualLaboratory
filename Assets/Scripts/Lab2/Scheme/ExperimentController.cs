@@ -13,8 +13,10 @@ namespace VirtualLaboratory.Lab2
 
         private float _currentIp;
 
-        public void Init()
+        public void Init(DataContainer data)
         {
+            _data = data;
+            
             _dataView.Init();
         }
 
