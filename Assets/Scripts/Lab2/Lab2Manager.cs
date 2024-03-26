@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace VirtualLaboratory.Lab2
 {
@@ -7,11 +6,11 @@ namespace VirtualLaboratory.Lab2
     {
         [SerializeField] private VariantChoiser _variantChoiser;
         [SerializeField] private ExperimentController _experimentController;
+        [SerializeField] private CurrentSource _currentSource;
         
         [Header("MENU")]
         [SerializeField] private GameObject _blockPanel;
-        [SerializeField] private Button _start;
-        [SerializeField] private Button _stop;
+        [SerializeField] private ControlButton _controlButton;
         
         private DataContainer _dataContainer;
         
@@ -19,36 +18,23 @@ namespace VirtualLaboratory.Lab2
         {
             _variantChoiser.Init();
             _dataContainer = new DataContainer();
-            
             _blockPanel.gameObject.SetActive(true);
-            
-            _start.onClick.AddListener(StartExperiment);
-            _stop.onClick.AddListener(StopExperiment);
-            
-            _start.gameObject.SetActive(true);
-            _stop.gameObject.SetActive(false);
+            _controlButton.Init(StartClicked, StopClicked);
+            _currentSource.Init(_experimentController);
         }
 
-        private void StartExperiment()
+        private void StartClicked()
         {
             _variantChoiser.Disable();
             _dataContainer.Init(_variantChoiser.Variant);
             _experimentController.Init(_dataContainer);
-            
             _blockPanel.gameObject.SetActive(false);
-            
-            _start.gameObject.SetActive(false);
-            _stop.gameObject.SetActive(true);
         }
         
-        private void StopExperiment()
+        private void StopClicked()
         {
             _variantChoiser.Enable();
-            
             _blockPanel.gameObject.SetActive(true);
-            
-            _start.gameObject.SetActive(true);
-            _stop.gameObject.SetActive(false);
         }
     }
 }
