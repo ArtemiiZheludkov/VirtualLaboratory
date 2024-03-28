@@ -25,6 +25,18 @@ namespace VirtualLaboratory.Lab2
         public float GetDataUz(int index) => Uz[index];
 
         public float GetDataIz(float Ip, int index) => Iz[(int)(Ip*100)][index];
+        
+        public IEnumerable<float> GetUzToIndex(int index)
+        {
+            for (int i = 0; i < index && i < Uz.Count; i++)
+                yield return Uz[i];
+        }
+        
+        public IEnumerable<float> GetIzToIndex(float Ip, int index)
+        {
+            for (int i = 0; i < index && i < Uz.Count; i++)
+                yield return Iz[(int)(Ip*100)][index];
+        }
 
         private void LoadData(int variant)
         {

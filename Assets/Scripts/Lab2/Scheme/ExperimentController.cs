@@ -9,6 +9,8 @@ namespace VirtualLaboratory.Lab2
         [SerializeField] private DataView _dataView;
         [SerializeField] private ControlButton _controlButton;
 
+        [SerializeField] private Graph _graph;
+
         private DataContainer _data;
         private int _index;
 
@@ -50,9 +52,11 @@ namespace VirtualLaboratory.Lab2
             if (_currentIp < 0.1f || _currentIp > 0.4f)
                 return;
 
+            if (_isPaused == false)
+                StartCoroutine(Experiment());
+            
             _isPaused = false;
             _isStoped = false;
-            StartCoroutine(Experiment());
         }
         
         private void StopClicked()
@@ -65,6 +69,9 @@ namespace VirtualLaboratory.Lab2
 
         private IEnumerator Experiment()
         {
+            Debug.Log("Start coroutine ----------- ");
+            _index = 0;
+            
             while (_isStoped == false)
             {
                 yield return new WaitForSeconds(_updateTime);
