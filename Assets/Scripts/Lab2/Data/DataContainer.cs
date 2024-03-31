@@ -6,7 +6,7 @@ namespace VirtualLaboratory.Lab2
     public class DataContainer
     {
         public int MaxIndex => (Uz.Count - 1);
-        
+
         private DataProvider _dataProvider;
         
         private List<float> Uz;

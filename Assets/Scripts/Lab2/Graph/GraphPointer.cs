@@ -12,7 +12,7 @@ namespace VirtualLaboratory.Lab2
 
         private List<RectTransform> _points;
 
-        public void Init(int maxPoints)
+        public void Init(in int maxPoints)
         {
             if (_points != null)
             {

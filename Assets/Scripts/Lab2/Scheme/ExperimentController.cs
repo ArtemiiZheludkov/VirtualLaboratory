@@ -73,6 +73,7 @@ namespace VirtualLaboratory.Lab2
         {
             Debug.Log("Start coroutine ----------- ");
             _index = 0;
+            _graph.ClearGraph();
             
             while (_isStoped == false)
             {

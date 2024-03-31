@@ -9,6 +9,7 @@ namespace VirtualLaboratory.Lab2
     {
         [SerializeField] private TMP_Text _Ip_text;
         [SerializeField] private GraphPointer _graphPointer;
+        [SerializeField] private Table _table;
         
         [Header("Graph")] 
         [SerializeField] private RectTransform _graphContainer;
@@ -41,7 +42,8 @@ namespace VirtualLaboratory.Lab2
             _graphHeight -= _graphHeight * 0.05f;
 
             ClearGrid();
-            _graphPointer.Init(maxPoints);
+            _graphPointer.Init(in maxPoints);
+            _table.Init(in maxPoints);
         }
 
         public void UpdateGraph(IEnumerable<float> x_list, IEnumerable<float> y_list, float Ip)
@@ -53,9 +55,22 @@ namespace VirtualLaboratory.Lab2
             
             UpdateBorders(xList.Min(), xList.Max(), out _minX, out _maxX);
             UpdateBorders(yList.Min(), yList.Max(), out _minY, out _maxY);
-            CreateGrid(xList, yList);
+            CreateGrid();
+            
+            _graphPointer.HideGraph();
+            _graphPointer.ShowGraph(xList, yList, _graphWidth,  _graphHeight, 
+                in _minX, in _maxX, in _minY, in _maxY, _widthOffset, _heightOffset);
+            
+            for (int i = 0; i < xList.Count; i++)
+                _table.UpdateRow(i, xList[i], yList[i]);
         }
-        
+
+        public void ClearGraph()
+        {
+            _graphPointer.HideGraph();
+            _table.HideTable();
+        }
+
         private void UpdateBorders(float newMin, float newMax, out float currentMin, out float currentMax)
         {
             if (newMin > newMax)
@@ -79,16 +94,11 @@ namespace VirtualLaboratory.Lab2
             _gameObjectList.Clear();
         }
 
-        private void CreateGrid(List<float> x_list, List<float> y_list)
+        private void CreateGrid()
         {
             ClearGrid();
-            _graphPointer.HideGraph();
-            
             AdjustAxis(_labelTemplateX, _dashTemplateX, in _minX, in _maxX, false);
             AdjustAxis(_labelTemplateY, _dashTemplateY, in _minY, in _maxY, true);
-            
-            _graphPointer.ShowGraph(x_list, y_list, _graphWidth,  _graphHeight, 
-                in _minX, in _maxX, in _minY, in _maxY, _widthOffset, _heightOffset);
         }
 
         private void AdjustAxis(RectTransform labelPrefab, RectTransform dashPrefab, in float min, in float max, bool isVertical)
