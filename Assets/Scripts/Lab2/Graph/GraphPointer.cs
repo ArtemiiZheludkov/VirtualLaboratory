@@ -14,8 +14,16 @@ namespace VirtualLaboratory.Lab2
 
         public void Init(int maxPoints)
         {
-            _points = new List<RectTransform>();
-
+            if (_points != null)
+            {
+                foreach (RectTransform obj in _points)
+                    Destroy(obj.gameObject);
+                
+                _points.Clear();
+            }
+            else
+                _points = new List<RectTransform>();
+            
             for (int i = 0; i <= maxPoints; i++)
                 CreateGraphPoint();
         }
@@ -26,23 +34,25 @@ namespace VirtualLaboratory.Lab2
                 point.gameObject.SetActive(false);
         }
 
-        public void ShowGraph(IEnumerable<float> y_list, in float graphHeight, in float yMin, in float yMax, in float xSize)
+        public void ShowGraph(List<float> x_list, List<float> y_list, float graphWidth, float graphHeight, 
+            in float xMin, in float xMax, in float yMin, in float yMax, in float xOffset, in float yOffset)
         {
-            int index = 0;
-
-            foreach (float point in y_list)
+            for (int i = 0; i < x_list.Count; i++)
             {
-                float xPosition = xSize + index * xSize;
-                float yPosition = ((point - yMin) / (yMax - yMin)) * graphHeight;
+                float xPosition = ((x_list[i] - xMin) / (xMax - xMin)) * graphWidth;
+                float yPosition = ((y_list[i] - yMin) / (yMax - yMin)) * graphHeight;
                 
-                SetPoint(_points[index], new Vector2(xPosition, yPosition));
-                index++;
+                xPosition += xOffset;
+                yPosition += yOffset;
+                
+                SetPoint(_points[i], new Vector2(xPosition, yPosition));
             }
         }
 
         private void SetPoint(RectTransform point, Vector2 anchoredPosition)
         {
             point.anchoredPosition = anchoredPosition;
+            point.gameObject.SetActive(true);
         }
 
         private void CreateGraphPoint()

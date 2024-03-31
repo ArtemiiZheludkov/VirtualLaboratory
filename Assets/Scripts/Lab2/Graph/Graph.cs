@@ -26,95 +26,131 @@ namespace VirtualLaboratory.Lab2
         private List<GameObject> _gameObjectList;
         
         private float _minY, _maxY;
-
+        private float _minX, _maxX;
         private float _graphWidth, _graphHeight;
+        private float _widthOffset, _heightOffset;
 
-        public void Init()
+        public void Init(int maxPoints)
         {
             _graphWidth = _graphContainer.sizeDelta.x;
+            _widthOffset = _graphWidth * 0.025f;
+            _graphWidth -= _graphWidth * 0.05f;
+            
             _graphHeight = _graphContainer.sizeDelta.y;
+            _heightOffset = _graphHeight * 0.015f;
+            _graphHeight -= _graphHeight * 0.05f;
+
+            ClearGrid();
+            _graphPointer.Init(maxPoints);
         }
 
-        public void UpdateGraph(IEnumerable<float> x_list, IEnumerable<float> y_list)
+        public void UpdateGraph(IEnumerable<float> x_list, IEnumerable<float> y_list, float Ip)
         {
-            UpdateBordersY(y_list.First(), y_list.Last());
-            CreateGrid(x_list, y_list, _minY, _maxY);
+            _Ip_text.text = "Ip = " + Ip.ToString("0.##") + " (mA)";
+            
+            List<float> xList = x_list.ToList();
+            List<float> yList = y_list.ToList();
+            
+            UpdateBorders(xList.Min(), xList.Max(), out _minX, out _maxX);
+            UpdateBorders(yList.Min(), yList.Max(), out _minY, out _maxY);
+            CreateGrid(xList, yList);
         }
         
-        private void UpdateBordersY(float minY = 0f, float maxY = 1f)
+        private void UpdateBorders(float newMin, float newMax, out float currentMin, out float currentMax)
         {
-            _minY = minY - (minY * 0.25f);
-            _maxY = maxY + (maxY * 0.25f);
+            if (newMin > newMax)
+                newMin = newMax / 2f;
+            
+            currentMin = newMin;
+            currentMax = newMax;
         }
 
         private void ClearGrid()
         {
+            if (_gameObjectList == null)
+            {
+                _gameObjectList = new List<GameObject>();
+                return;
+            }
+
             foreach (GameObject obj in _gameObjectList)
                 Destroy(obj);
                 
             _gameObjectList.Clear();
         }
 
-        private void CreateGrid(IEnumerable<float> x_list, IEnumerable<float> y_list, float yMin, float yMax)
+        private void CreateGrid(List<float> x_list, List<float> y_list)
         {
             ClearGrid();
-
-            int y_count = y_list.Count();
-            int maxVisibleValueAmount = y_count;
-
-            if (maxVisibleValueAmount < 5)
-                maxVisibleValueAmount = 5;
+            _graphPointer.HideGraph();
             
-            float xSize = _graphWidth / (maxVisibleValueAmount + 1);
-            int xIndex = 0;
+            AdjustAxis(_labelTemplateX, _dashTemplateX, in _minX, in _maxX, false);
+            AdjustAxis(_labelTemplateY, _dashTemplateY, in _minY, in _maxY, true);
             
-            _graphPointer.ShowGraph(y_list, in _graphHeight, in yMin, in yMax, in xSize);
-            
-            foreach (float x in x_list)
-            {
-                float xPosition = xSize + xIndex * xSize;
-                
-                RectTransform labelX = Instantiate(_labelTemplateX, _labelContainer, false);
-                labelX.gameObject.SetActive(true);
-                labelX.anchoredPosition = new Vector2(xPosition, -7f);
+            _graphPointer.ShowGraph(x_list, y_list, _graphWidth,  _graphHeight, 
+                in _minX, in _maxX, in _minY, in _maxY, _widthOffset, _heightOffset);
+        }
 
-                if (xIndex == 0 || y_count < 2 || xIndex % 2 == 0 || xIndex == y_count - 1)
-                    labelX.GetComponent<TMP_Text>().text = x.ToString("0.##");
-                else
-                    labelX.GetComponent<TMP_Text>().text = "";
-                
-                _gameObjectList.Add(labelX.gameObject);
-                
-                RectTransform dashX = Instantiate(_dashTemplateX, _dashContainer, false);
-                dashX.gameObject.SetActive(true);
-                dashX.anchoredPosition = new Vector2(xPosition, -3f);
-                _gameObjectList.Add(dashX.gameObject);
-
-                xIndex++;
-            }
-            
-            int separatorCount = 10;
+        private void AdjustAxis(RectTransform labelPrefab, RectTransform dashPrefab, in float min, in float max, bool isVertical)
+        {
+            int separatorCount = 8;
             
             for (int i = 0; i <= separatorCount; i++) 
             {
-                RectTransform labelY = Instantiate(_labelTemplateY, _labelContainer, false);
-                labelY.gameObject.SetActive(true);
-                
                 float normalizedValue = i * 1f / separatorCount;
-                labelY.anchoredPosition = new Vector2(-7f, normalizedValue * _graphHeight);
+                Vector2 position;
                 
-                if (i == 0 || i % 2 == 0 || i == separatorCount)
-                    labelY.GetComponent<TMP_Text>().text = (yMin + (normalizedValue * (yMax - yMin))).ToString("0.##");
+                if (isVertical == true)
+                    position = new Vector2(0f, (normalizedValue * _graphHeight) + _heightOffset);
                 else
-                    labelY.GetComponent<TMP_Text>().text = "";
+                    position = new Vector2((normalizedValue * _graphWidth) + _widthOffset, 0f);
                 
-                _gameObjectList.Add(labelY.gameObject);
+                RectTransform label = CreateLabel(labelPrefab, in isVertical, position);
                 
-                RectTransform dashY = Instantiate(_dashTemplateY, _dashContainer, false);
-                dashY.gameObject.SetActive(true);
-                dashY.anchoredPosition = new Vector2(-4f, normalizedValue * _graphHeight);
-                _gameObjectList.Add(dashY.gameObject);
+                if (i % 2 == 0)
+                    label.GetComponent<TMP_Text>().text = (min + (normalizedValue * (max - min))).ToString("0.##");
+                else
+                    label.GetComponent<TMP_Text>().text = "";
+                
+                CreateDash(dashPrefab, position);
             }
+            
+            if (min < 0 && max > 0)
+            {
+                float normalizedZero = (0 - min) / (max - min);
+                Vector2 position;
+                
+                if (isVertical == true)
+                    position = new Vector2(0f, (normalizedZero * _graphHeight) + _heightOffset);
+                else
+                    position = new Vector2((normalizedZero * _graphWidth) + _widthOffset, 0f);
+                
+                RectTransform zeroLabel = CreateLabel(labelPrefab, in isVertical, position);
+                zeroLabel.GetComponent<TMP_Text>().text = "0.00";
+                CreateDash(dashPrefab, position);
+            }
+        }
+
+        private RectTransform CreateLabel(RectTransform labelPrefab, in bool isVertical, in Vector2 position)
+        {
+            RectTransform label = Instantiate(labelPrefab, _labelContainer, false);
+            label.gameObject.SetActive(true);
+            _gameObjectList.Add(label.gameObject);
+            
+            if (isVertical == true)
+                label.anchoredPosition = new Vector2(-10f, position.y);
+            else
+                label.anchoredPosition = new Vector2(position.x, -15f);
+
+            return label;
+        }
+
+        private void CreateDash(RectTransform dashPrefab, in Vector2 position)
+        {
+            RectTransform dash = Instantiate(dashPrefab, _dashContainer, false);
+            dash.gameObject.SetActive(true);
+            dash.anchoredPosition = position;
+            _gameObjectList.Add(dash.gameObject);
         }
     }
 }

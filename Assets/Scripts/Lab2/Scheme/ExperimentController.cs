@@ -22,6 +22,7 @@ namespace VirtualLaboratory.Lab2
             _data = data;
             
             _dataView.Init();
+            _graph.Init(_data.MaxIndex);
             _controlButton.Init(StartClicked, StopClicked);
 
             _isStoped = true;
@@ -52,11 +53,12 @@ namespace VirtualLaboratory.Lab2
             if (_currentIp < 0.1f || _currentIp > 0.4f)
                 return;
 
+            _isStoped = false;
+            
             if (_isPaused == false)
                 StartCoroutine(Experiment());
-            
-            _isPaused = false;
-            _isStoped = false;
+            else
+                _isPaused = false;
         }
         
         private void StopClicked()
@@ -75,7 +77,6 @@ namespace VirtualLaboratory.Lab2
             while (_isStoped == false)
             {
                 yield return new WaitForSeconds(_updateTime);
-                Debug.Log("Update");
                 
                 if (_isPaused == true)
                     continue;
@@ -83,6 +84,7 @@ namespace VirtualLaboratory.Lab2
                 if (_index >= 0 && _index <= _data.MaxIndex)
                 {
                     _dataView.UpdateScheme(_data.GetDataUz(_index), _data.GetDataIz(_currentIp, _index));
+                    _graph.UpdateGraph(_data.GetUzToIndex(_index), _data.GetIzToIndex(_currentIp, _index), _currentIp);
                     _index += 1; // UPDATE INDEX
                 }
             }
