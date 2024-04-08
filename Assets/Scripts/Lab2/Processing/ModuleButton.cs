@@ -4,21 +4,18 @@ using UnityEngine.UI;
 
 namespace VirtualLaboratory.Lab2
 {
-    public class VariantButton : MonoBehaviour
+    public class ModuleButton : MonoBehaviour
     {
-        public Variant Variant { get; private set; }
-        
         [SerializeField] private Button _button;
         [SerializeField] private TMP_Text _name;
         [SerializeField] private Image _enabled;
         
-        private VariantChoiser _choiser;
-
-        public void Init(Variant variant, VariantChoiser choiser)
+        private DataProcessor _processor;
+        
+        public void Init(ProcessModule module, DataProcessor processor)
         {
-            Variant = variant;
-            _choiser = choiser;
-            _name.text = Variant.ButtonName;
+            _processor = processor;
+            _name.text = module.Name;
             
             Disable();
             
@@ -30,6 +27,6 @@ namespace VirtualLaboratory.Lab2
 
         public void Disable() => _enabled.gameObject.SetActive(false);
 
-        private void OnClicked() =>  _choiser.SetVariant(this);
+        private void OnClicked() =>  _processor.SetModule(this);
     }
 }

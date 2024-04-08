@@ -34,13 +34,13 @@ namespace VirtualLaboratory.Lab2
                 point.gameObject.SetActive(false);
         }
 
-        public void ShowGraph(List<float> x_list, List<float> y_list, float graphWidth, float graphHeight, 
+        public void ShowGraph(float[] x_array, float[] y_array, float graphWidth, float graphHeight, 
             in float xMin, in float xMax, in float yMin, in float yMax, in float xOffset, in float yOffset)
         {
-            for (int i = 0; i < x_list.Count; i++)
+            for (int i = 0; i < x_array.Length; i++)
             {
-                float xPosition = ((x_list[i] - xMin) / (xMax - xMin)) * graphWidth;
-                float yPosition = ((y_list[i] - yMin) / (yMax - yMin)) * graphHeight;
+                float xPosition = ((x_array[i] - xMin) / (xMax - xMin)) * graphWidth;
+                float yPosition = ((y_array[i] - yMin) / (yMax - yMin)) * graphHeight;
                 
                 xPosition += xOffset;
                 yPosition += yOffset;

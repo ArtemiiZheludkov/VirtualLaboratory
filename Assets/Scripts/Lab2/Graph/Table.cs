@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace VirtualLaboratory.Lab2
 {
     public class Table : MonoBehaviour
     {
+        [SerializeField] private TMP_Text _xText;
+        [SerializeField] private TMP_Text _yText;
         [SerializeField] private TableElement _rowPrefab;
         [SerializeField] private Transform _tableContent;
 
@@ -40,6 +43,12 @@ namespace VirtualLaboratory.Lab2
             _elements[index].SetText(in x, in y);
         }
 
+        public void SetHeaders(string xName, string yName)
+        {
+            _xText.text = xName;
+            _yText.text = yName;
+        }
+        
         private void CreateElement()
         {
             TableElement element = Instantiate(_rowPrefab, _tableContent);

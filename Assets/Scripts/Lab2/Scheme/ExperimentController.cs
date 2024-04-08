@@ -8,14 +8,14 @@ namespace VirtualLaboratory.Lab2
         [SerializeField] private float _updateTime;
         [SerializeField] private DataView _dataView;
         [SerializeField] private ControlButton _controlButton;
-
+        [SerializeField] private DataProcessor _dataProcessor;
         [SerializeField] private Graph _graph;
 
         private DataContainer _data;
         private int _index;
 
         private float _currentIp;
-        private bool _isPaused, _isStoped;
+        private bool _isPaused, _isStopped;
 
         public void Init(DataContainer data)
         {
@@ -24,8 +24,9 @@ namespace VirtualLaboratory.Lab2
             _dataView.Init();
             _graph.Init(_data.MaxIndex);
             _controlButton.Init(StartClicked, StopClicked);
+            _dataProcessor.Init(_data, _graph);
 
-            _isStoped = true;
+            _isStopped = true;
             _isPaused = false;
         }
 
@@ -41,7 +42,7 @@ namespace VirtualLaboratory.Lab2
 
             if ((int)(Ip * 100f) != (int)(_currentIp * 100f))
             {
-                _isStoped = true;
+                _isStopped = true;
                 _controlButton.SetStart();
             }
             
@@ -53,7 +54,7 @@ namespace VirtualLaboratory.Lab2
             if (_currentIp < 0.1f || _currentIp > 0.4f)
                 return;
 
-            _isStoped = false;
+            _isStopped = false;
             
             if (_isPaused == false)
                 StartCoroutine(Experiment());
@@ -63,10 +64,10 @@ namespace VirtualLaboratory.Lab2
         
         private void StopClicked()
         {
-            if (_isStoped == true)
+            if (_isStopped == true)
                 StopAllCoroutines();
 
-            _isPaused = !_isStoped;
+            _isPaused = !_isStopped;
         }
 
         private IEnumerator Experiment()
@@ -74,8 +75,9 @@ namespace VirtualLaboratory.Lab2
             Debug.Log("Start coroutine ----------- ");
             _index = 0;
             _graph.ClearGraph();
+            _dataProcessor.DisableProcessing();
             
-            while (_isStoped == false)
+            while (_isStopped == false)
             {
                 yield return new WaitForSeconds(_updateTime);
                 
@@ -84,9 +86,15 @@ namespace VirtualLaboratory.Lab2
 
                 if (_index >= 0 && _index <= _data.MaxIndex)
                 {
-                    _dataView.UpdateScheme(_data.GetDataUz(_index), _data.GetDataIz(_currentIp, _index));
+                    _dataView.UpdateScheme(_data.GetUzByIndex(_index), _data.GetIzByIndex(_currentIp, _index));
                     _graph.UpdateGraph(_data.GetUzToIndex(_index), _data.GetIzToIndex(_currentIp, _index), _currentIp);
-                    _index += 1; // UPDATE INDEX
+                    _index += 1;
+                }
+
+                if (_index > _data.MaxIndex)
+                {
+                    _dataProcessor.EnableProcessing(_currentIp);
+                    break;
                 }
             }
         }

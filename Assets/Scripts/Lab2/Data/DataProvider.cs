@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace VirtualLaboratory.Lab2
 {
     public class DataProvider
     {
-        public List<float> GetData(int variant, string name)
+        public float[] GetData(int variant, string name)
         {
             try
             {
@@ -18,7 +17,7 @@ namespace VirtualLaboratory.Lab2
                 TextAsset dataFile = Resources.Load<TextAsset>(resourcePath);
                 
                 string[] lines = dataFile.text.Split('\n');
-                List<float> data = new List<float>();
+                float[] data = null;
             
                 foreach (string line in lines)
                 {
@@ -29,13 +28,15 @@ namespace VirtualLaboratory.Lab2
                     string[] values = trimmedLine.Split(',');
                     if (values[0].Trim().Equals(name, StringComparison.OrdinalIgnoreCase))
                     {
+                        data = new float[values.Length - 1];
+                        
                         for (int i = 1; i < values.Length; i++)
                         {
                             if (float.TryParse(values[i], NumberStyles.Any, CultureInfo.InvariantCulture, out float parsedValue))
-                                data.Add(parsedValue);
+                                data[i - 1] = parsedValue;
                         }
                         
-                        Debug.Log($"Data loaded: {name}\n" + $"Count = {data.Count}");
+                        Debug.Log($"Data loaded: {name}\n" + $"Count = {data.Length}");
                         break;
                     }
                 }

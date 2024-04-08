@@ -46,23 +46,20 @@ namespace VirtualLaboratory.Lab2
             _table.Init(in maxPoints);
         }
 
-        public void UpdateGraph(IEnumerable<float> x_list, IEnumerable<float> y_list, float Ip)
+        public void UpdateGraph(float[] x_array, float[] y_array, float Ip)
         {
             _Ip_text.text = "Ip = " + Ip.ToString("0.##") + " (mA)";
             
-            List<float> xList = x_list.ToList();
-            List<float> yList = y_list.ToList();
-            
-            UpdateBorders(xList.Min(), xList.Max(), out _minX, out _maxX);
-            UpdateBorders(yList.Min(), yList.Max(), out _minY, out _maxY);
+            UpdateBorders(x_array.Min(), x_array.Max(), out _minX, out _maxX);
+            UpdateBorders(y_array.Min(), y_array.Max(), out _minY, out _maxY);
             CreateGrid();
             
             _graphPointer.HideGraph();
-            _graphPointer.ShowGraph(xList, yList, _graphWidth,  _graphHeight, 
+            _graphPointer.ShowGraph(x_array, y_array, _graphWidth,  _graphHeight, 
                 in _minX, in _maxX, in _minY, in _maxY, _widthOffset, _heightOffset);
             
-            for (int i = 0; i < xList.Count; i++)
-                _table.UpdateRow(i, xList[i], yList[i]);
+            for (int i = 0; i < x_array.Length; i++)
+                _table.UpdateRow(i, x_array[i], y_array[i]);
         }
 
         public void ClearGraph()
