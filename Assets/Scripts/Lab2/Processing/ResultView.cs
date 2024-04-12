@@ -21,8 +21,12 @@ namespace VirtualLaboratory.Lab2
 
         public void AddTextLine(string addText)
         {
+            if (_texts == null)
+                _texts = new List<TMP_Text>();
+            
             TMP_Text textLine = Instantiate(_textPrefab, _textParent, false);
             textLine.text = addText;
+            _texts.Add(textLine);
         }
 
         public void Clear()

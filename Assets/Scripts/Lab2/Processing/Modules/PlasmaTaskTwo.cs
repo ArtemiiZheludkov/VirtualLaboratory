@@ -6,6 +6,13 @@ namespace VirtualLaboratory.Lab2
     public class PlasmaTaskTwo : ProcessModule
     {
         private float voltage_plasma;
+        private LeastSquares _processor;
+        
+        public override void Init(Graph graph, ResultView resultView)
+        {
+            base.Init(graph, resultView);
+            _processor = new LeastSquares();
+        }
         
         protected override (float[], float[]) PrepareData(float[] x_array, float[] y_array)
         {
