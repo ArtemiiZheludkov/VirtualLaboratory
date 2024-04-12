@@ -713,7 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e77837dad3041599966f6d743cc3a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\u0412\u0435\u0441\u044C \u0433\u0440\u0430\u0444\u0456\u043A"
+  _name: "\u0412\u0435\u0441\u044C \u0433\u0440\u0430\u0444\u0456\u043A"
 --- !u!1 &2070376635257803597
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bf2871ce5e4d99a0fb6c5388bafc57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "V\u043F\u043B < V < Vmax"
+  _name: "V\u043F\u043B<V<Vmax"
 --- !u!1 &2095742751567082526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7557dbcc1ae84aed89af97afa054654d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "V\u043F\u043B < V < 0"
+  _name: Vmin<V<V0
 --- !u!1 &4864185234807571201
 GameObject:
   m_ObjectHideFlags: 0

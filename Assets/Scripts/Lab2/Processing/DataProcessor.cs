@@ -2,10 +2,8 @@
 
 namespace VirtualLaboratory.Lab2
 {
-    public class DataProcessor : MonoBehaviour
+    public class DataProcessor : VariantСhooser
     {
-        [SerializeField] private ModuleButton _moduleButtonPrefab;
-        [SerializeField] private Transform _buttonsParent;
         [SerializeField] private GameObject _blockPanel;
 
         [Header("MODULES")] 
@@ -15,26 +13,23 @@ namespace VirtualLaboratory.Lab2
 
         private DataContainer _data;
         private Graph _graph;
-        
-        private ModuleButton[] _buttons;
         private ProcessModule _currentModule;
-
         private float _currentIp;
 
         public void Init(DataContainer data, Graph graph)
         {
             _data = data;
             _graph = graph;
-            
+
             if (_buttons != null)
             {
-                foreach (ModuleButton obj in _buttons)
+                foreach (VariantButton obj in _buttons)
                     Destroy(obj.gameObject);
                 
                 _buttons = null;
             }
             
-            CreateButtons();
+            CreateButtons(_modules.Length);
             
             _buttons[0].Enable();
             _currentModule = _modules[0];
@@ -48,7 +43,7 @@ namespace VirtualLaboratory.Lab2
         public void EnableProcessing(float currentIp)
         {
             _currentIp = currentIp;
-            SetModule(_buttons[0]);
+            OnClickedVariant(_buttons[0]);
             _blockPanel.SetActive(false);
         }
 
@@ -65,35 +60,14 @@ namespace VirtualLaboratory.Lab2
             _blockPanel.SetActive(true);
         }
 
-        public void SetModule(ModuleButton buttonCall)
+        protected override void OnClickedVariant(VariantButton buttonCall)
         {
-            for (int i = 0; i < _buttons.Length; i++)
-            {
-                if (ReferenceEquals(_buttons[i], buttonCall) == true)
-                    _currentModule = _modules[i];
-                else
-                    _buttons[i].Disable();
-            }
-            
-            buttonCall.Enable();
-            EnableModule(_currentModule);
+            base.OnClickedVariant(buttonCall);
+            _currentModule.Enable(_data.GetUzData(), _data.GetIzData(_currentIp), _currentIp);
         }
 
-        private void EnableModule(ProcessModule module)
-        {
-            module.Enable(_data.GetUzData(), _data.GetIzData(_currentIp), _currentIp);
-        }
-
-        private void CreateButtons()
-        {
-            _buttons = new ModuleButton[_modules.Length];
-            
-            for (int i = 0; i < _buttons.Length; i++)
-            {
-                ModuleButton button = Instantiate(_moduleButtonPrefab, _buttonsParent);
-                button.Init(_modules[i], this);
-                _buttons[i] = button;
-            }
-        }
+        protected override void SetVariant(int index) => _currentModule = _modules[index];
+        
+        protected override void OnCreateButton(int index) => _buttons[index].Init(_modules[index], OnClickedVariant);
     }
 }

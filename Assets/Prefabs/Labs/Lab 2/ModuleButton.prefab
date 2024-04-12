@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4992374303042942405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9254902, g: 0.25882357, b: 0.27782172, a: 1}
+  m_Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 6154657766398862296}
   - component: {fileID: 287649307218766468}
   - component: {fileID: 8697684949987227413}
-  - component: {fileID: 8326553323152797306}
+  - component: {fileID: 8649593397770918079}
   m_Layer: 5
   m_Name: ModuleButton
   m_TagString: Untagged
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8326553323152797306
+--- !u!114 &8649593397770918079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4829755995038030447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11983062f81d4113bf46883e598efd98, type: 3}
+  m_Script: {fileID: 11500000, guid: 17ee7347c76a40209d2fcd1acdc908fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 8697684949987227413}

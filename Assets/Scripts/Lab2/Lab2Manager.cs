@@ -4,7 +4,7 @@ namespace VirtualLaboratory.Lab2
 {
     public class Lab2Manager : MonoBehaviour
     {
-        [SerializeField] private VariantChoiser _variantChoiser;
+        [SerializeField] private DefaultVariantСhooser _variantChoiser;
         [SerializeField] private ExperimentController _experimentController;
         [SerializeField] private CurrentSource _currentSource;
         

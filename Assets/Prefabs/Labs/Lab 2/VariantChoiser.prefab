@@ -106,13 +106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77318ef9f11f4f5a84cd53acdc8cab8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _variants:
-  - FullName: "\u0412\u0430\u0440\u0456\u0430\u043D\u0442 1"
-    ButtonName: B 1
-  - FullName: "\u0412\u0430\u0440\u0456\u0430\u043D\u0442 2"
-    ButtonName: B 2
   _buttonPrefab: {fileID: -4548422044073781370, guid: 38d1b9fd10979444eaf3289d8465391e, type: 3}
   _buttonsParent: {fileID: 2196334367033468490}
+  _variants:
+  - _fullName: Variant 1
+    _buttonName: B1
+  - _fullName: Variant 2
+    _buttonName: B2
   _variantText: {fileID: 3305590071593806309}
 --- !u!1 &3368129373625066873
 GameObject:

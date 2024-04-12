@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3949379160143b3afd3fa4dc4ab0a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moduleButtonPrefab: {fileID: 8326553323152797306, guid: 3a28b7a90a43afa4187a5d76c122fe7a, type: 3}
+  _buttonPrefab: {fileID: 8649593397770918079, guid: 3a28b7a90a43afa4187a5d76c122fe7a, type: 3}
   _buttonsParent: {fileID: 1589745467971540511}
   _blockPanel: {fileID: 3602790940567644408}
   _modules: []

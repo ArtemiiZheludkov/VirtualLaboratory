@@ -28,6 +28,8 @@ namespace VirtualLaboratory.Lab2
 
             _isStopped = true;
             _isPaused = false;
+            
+            _graph.ClearGraph();
         }
 
         public override void SetCurrent(float Ip)
@@ -48,7 +50,7 @@ namespace VirtualLaboratory.Lab2
             
             _currentIp = Ip;
         }
-        
+
         private void StartClicked()
         {
             if (_currentIp < 0.1f || _currentIp > 0.4f)

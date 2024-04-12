@@ -1,6 +1,6 @@
 ﻿namespace VirtualLaboratory.Lab2
 {
-    public class StandardModule : ProcessModule
+    public class DefaultModule : ProcessModule
     {
         protected override (float[], float[]) PrepareData(float[] x_array, float[] y_array)
         {

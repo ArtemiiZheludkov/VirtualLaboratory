@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,19 +7,16 @@ namespace VirtualLaboratory.Lab2
 {
     public class VariantButton : MonoBehaviour
     {
-        public Variant Variant { get; private set; }
-        
         [SerializeField] private Button _button;
         [SerializeField] private TMP_Text _name;
         [SerializeField] private Image _enabled;
-        
-        private VariantChoiser _choiser;
 
-        public void Init(Variant variant, VariantChoiser choiser)
+        private Action<VariantButton> _onClicked;
+
+        public void Init(IVariant variant, Action<VariantButton> onClicked)
         {
-            Variant = variant;
-            _choiser = choiser;
-            _name.text = Variant.ButtonName;
+            _onClicked = onClicked;
+            _name.text = variant.ButtonName();
             
             Disable();
             
@@ -30,6 +28,6 @@ namespace VirtualLaboratory.Lab2
 
         public void Disable() => _enabled.gameObject.SetActive(false);
 
-        private void OnClicked() =>  _choiser.SetVariant(this);
+        private void OnClicked() =>  _onClicked?.Invoke(this);
     }
 }

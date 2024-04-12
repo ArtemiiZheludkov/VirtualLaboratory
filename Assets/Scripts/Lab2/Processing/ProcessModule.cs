@@ -2,10 +2,14 @@
 
 namespace VirtualLaboratory.Lab2
 {
-    public abstract class ProcessModule : MonoBehaviour
+    public abstract class ProcessModule : MonoBehaviour, IVariant
     {
-        public string Name;
+        [SerializeField] protected string _name;
+        
         private Graph _graph;
+        
+        public string FullName() => _name;
+        public string ButtonName() => _name;
         
         public virtual void Init(Graph graph)
         {
