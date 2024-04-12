@@ -8,8 +8,7 @@ namespace VirtualLaboratory.Lab2
 
         [Header("MODULES")] 
         [SerializeField] private ProcessModule[] _modules;
-        
-        // Result viewer (text)
+        [SerializeField] private ResultView _resultView;
 
         private DataContainer _data;
         private Graph _graph;
@@ -20,24 +19,16 @@ namespace VirtualLaboratory.Lab2
         {
             _data = data;
             _graph = graph;
-
-            if (_buttons != null)
-            {
-                foreach (VariantButton obj in _buttons)
-                    Destroy(obj.gameObject);
-                
-                _buttons = null;
-            }
             
+            _resultView.Init();
             CreateButtons(_modules.Length);
             
             _buttons[0].Enable();
             _currentModule = _modules[0];
+            _blockPanel.SetActive(true);
 
             foreach (ProcessModule module in _modules)
-                module.Init(_graph);
-            
-            _blockPanel.SetActive(true);
+                module.Init(_graph, _resultView);
         }
 
         public void EnableProcessing(float currentIp)

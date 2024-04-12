@@ -28,6 +28,14 @@ namespace VirtualLaboratory.Lab2
 
         protected virtual void CreateButtons(int variantsLength)
         {
+            if (_buttons != null)
+            {
+                foreach (VariantButton obj in _buttons)
+                    Destroy(obj.gameObject);
+                
+                _buttons = null;
+            }
+            
             _buttons = new VariantButton[variantsLength];
 
             for (int i = 0; i < variantsLength; i++)

@@ -6,20 +6,22 @@ namespace VirtualLaboratory.Lab2
     {
         [SerializeField] protected string _name;
         
-        private Graph _graph;
+        protected Graph _graph;
+        protected ResultView _resultView;
         
         public string FullName() => _name;
         public string ButtonName() => _name;
         
-        public virtual void Init(Graph graph)
+        public virtual void Init(Graph graph, ResultView resultView)
         {
             _graph = graph;
+            _resultView = resultView;
         }
         
         public virtual void Enable(float[] x_array, float[] y_array, float currentIp)
         {
             _graph.ClearGraph();
-            //text clear
+            _resultView.Clear();
             
             var (newX, newY) = PrepareData(x_array, y_array);
             _graph.UpdateGraph(newX, newY, currentIp);
@@ -31,7 +33,7 @@ namespace VirtualLaboratory.Lab2
         public virtual void Disable()
         {
             _graph.ClearGraph();
-            //text clear
+            _resultView.Clear();
         }
         
         protected abstract (float[], float[]) PrepareData(float[] x_array, float[] y_array);

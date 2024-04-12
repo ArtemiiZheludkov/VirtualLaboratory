@@ -867,6 +867,7 @@ RectTransform:
   - {fileID: 181303093396024895}
   - {fileID: 6913664035116939255}
   - {fileID: 6394203900689769852}
+  - {fileID: 7421519744601119084}
   - {fileID: 8614346544897479763}
   - {fileID: 4075439386851274850}
   m_Father: {fileID: 0}
@@ -3198,6 +3199,123 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.101960786}
   m_EffectDistance: {x: 0, y: -8}
   m_UseGraphicAlpha: 1
+--- !u!1001 &712550801866843162
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 238368056371768689}
+    m_Modifications:
+    - target: {fileID: 5856032124729452734, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6060767776861805927, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_Name
+      value: ResultView
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 271
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -391
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+--- !u!114 &2645769338678697785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3266468862582930211, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+  m_PrefabInstance: {fileID: 712550801866843162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acb51f303e14c8b965103af94aeafd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &7421519744601119084 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8006825981200186742, guid: 0825898cc13bd7d4ead68464f0793fd5, type: 3}
+  m_PrefabInstance: {fileID: 712550801866843162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3811149788043483272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3693,6 +3811,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6594387701469747082, guid: def5e5485b050bf41aa3cc124d56cb9d, type: 3}
+      propertyPath: _resultView
+      value: 
+      objectReference: {fileID: 2645769338678697785}
     - target: {fileID: 6594387701469747082, guid: def5e5485b050bf41aa3cc124d56cb9d, type: 3}
       propertyPath: _modules.Array.size
       value: 3
