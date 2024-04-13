@@ -34,10 +34,10 @@ namespace VirtualLaboratory.Lab2
             float y1 = _processor.A * x1 + _processor.B;
             float y2 = _processor.A * x2 + _processor.B;
             
-            Vector2 newPoint1 = new Vector2(x1, y1);
-            Vector2 newPoint2 = new Vector2(x2, y2);
+            Vector2 start = new Vector2(x1, y1);
+            Vector2 end = new Vector2(x2, y2);
             
-            _graph.AddLine(in newPoint1, in newPoint2);
+            _graph.AddLine(in start, in end);
         }
 
         protected override void ShowProcessResult()

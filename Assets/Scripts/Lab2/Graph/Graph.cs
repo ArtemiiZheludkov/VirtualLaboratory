@@ -77,17 +77,17 @@ namespace VirtualLaboratory.Lab2
                 _yText.text = yName;
         }
 
-        public void AddLine(in Vector2 point1, in Vector2 point2)
+        public void AddLine(in Vector2 start, in Vector2 end)
         {
-            float x1 = ((point1.x - _minX) / (_maxX - _minX)) * _graphWidth;
-            float x2 = ((point2.x - _minX) / (_maxX - _minX)) * _graphWidth;
-            float y1 = ((point1.y - _minY) / (_maxY - _minY)) * _graphHeight;
-            float y2 = ((point2.y - _minY) / (_maxY - _minY)) * _graphHeight;
+            float x1 = ((start.x - _minX) / (_maxX - _minX)) * _graphWidth;
+            float x2 = ((end.x - _minX) / (_maxX - _minX)) * _graphWidth;
+            float y1 = ((start.y - _minY) / (_maxY - _minY)) * _graphHeight;
+            float y2 = ((end.y - _minY) / (_maxY - _minY)) * _graphHeight;
 
-            Vector2 newPoint1 = new Vector2(x1 + _widthOffset, y1 + _heightOffset);
-            Vector2 newPoint2 = new Vector2(x2 + _widthOffset, y2 + _heightOffset);
+            Vector2 newStart = new Vector2(x1 + _widthOffset, y1 + _heightOffset);
+            Vector2 newEnd = new Vector2(x2 + _widthOffset, y2 + _heightOffset);
             
-            _graphLine.AddLine(newPoint1, newPoint2);
+            _graphLine.AddLine(newStart, newEnd);
         }
 
         public void ClearGraph()

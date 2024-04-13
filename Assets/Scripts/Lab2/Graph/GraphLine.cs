@@ -16,13 +16,13 @@ namespace VirtualLaboratory.Lab2
             _lines = new List<RectTransform>();
         }
 
-        public void AddLine(in Vector2 point1, in Vector2 point2)
+        public void AddLine(in Vector2 start, in Vector2 end)
         {
             RectTransform line = CreateLine();
-            line.anchoredPosition = point1;
-            line.sizeDelta = new Vector2(Vector2.Distance(point1, point2), 7f);
+            line.anchoredPosition = start;
+            line.sizeDelta = new Vector2(Vector2.Distance(start, end), 7f);
             
-            float angle = Mathf.Atan2(point2.y - point1.y, point2.x - point1.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(end.y - start.y, end.x - start.x) * Mathf.Rad2Deg;
             line.rotation = Quaternion.Euler(0, 0, angle);
         }
 
