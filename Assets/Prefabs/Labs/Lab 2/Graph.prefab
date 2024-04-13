@@ -674,6 +674,7 @@ GameObject:
   - component: {fileID: 6839180774125578412}
   - component: {fileID: 9152229977864112043}
   - component: {fileID: 8989295050177537869}
+  - component: {fileID: 3853090141067542127}
   m_Layer: 0
   m_Name: Graph
   m_TagString: Untagged
@@ -723,8 +724,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Ip_text: {fileID: 3931316336459669092}
   _graphPointer: {fileID: 8989295050177537869}
+  _graphLine: {fileID: 3853090141067542127}
   _table: {fileID: 3798831030745839708}
   _graphContainer: {fileID: 7734774964323497669}
+  _xText: {fileID: 1639210644995633934}
+  _yText: {fileID: 5382997798278668899}
+  _xDefaultName: Uz (V)
+  _yDefaultName: Iz (mkA)
   _labelContainer: {fileID: 6797992109453733051}
   _labelTemplateX: {fileID: 1567659595851894306}
   _labelTemplateY: {fileID: 5395216010754760550}
@@ -746,6 +752,20 @@ MonoBehaviour:
   _point: {fileID: 560925113586220648, guid: 7f9b076d4a4dc544ca2bc94d5923f447, type: 3}
   _pointSize: 10
   _pointParent: {fileID: 4655390646980538519}
+--- !u!114 &3853090141067542127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882740683832234274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d520a34b1d04c33895e77510399eda8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _linePrefab: {fileID: 6107895893975838645}
+  _lineParent: {fileID: 7734774964323497669}
 --- !u!1 &888188425032912469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2504,7 +2524,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -37.00006, y: -30.000038}
   m_SizeDelta: {x: 125.5, y: 10}
-  m_Pivot: {x: 0.1, y: 0.1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &6075467513340847798
 CanvasRenderer:
   m_ObjectHideFlags: 0

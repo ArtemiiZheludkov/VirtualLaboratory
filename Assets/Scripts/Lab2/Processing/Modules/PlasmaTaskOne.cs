@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace VirtualLaboratory.Lab2
 {
@@ -27,6 +28,16 @@ namespace VirtualLaboratory.Lab2
         protected override void ProcessData(float[] x_array, float[] y_array)
         {
             _processor.Fit(x_array, y_array);
+            
+            float x1 = x_array[0];
+            float x2 = x_array[^1];
+            float y1 = _processor.A * x1 + _processor.B;
+            float y2 = _processor.A * x2 + _processor.B;
+            
+            Vector2 newPoint1 = new Vector2(x1, y1);
+            Vector2 newPoint2 = new Vector2(x2, y2);
+            
+            _graph.AddLine(in newPoint1, in newPoint2);
         }
 
         protected override void ShowProcessResult()

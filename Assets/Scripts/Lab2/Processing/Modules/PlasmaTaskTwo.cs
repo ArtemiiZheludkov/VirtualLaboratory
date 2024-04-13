@@ -13,7 +13,13 @@ namespace VirtualLaboratory.Lab2
             base.Init(graph, resultView);
             _processor = new LeastSquares();
         }
-        
+
+        public override void Enable(float[] x_array, float[] y_array, float currentIp)
+        {
+            base.Enable(x_array, y_array, currentIp);
+            _graph.SetAxisName(null, "LnIz (mkA)");
+        }
+
         protected override (float[], float[]) PrepareData(float[] x_array, float[] y_array)
         {
             int indexI0 = FindIndexZero(y_array);

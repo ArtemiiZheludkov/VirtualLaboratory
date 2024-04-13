@@ -9,10 +9,15 @@ namespace VirtualLaboratory.Lab2
     {
         [SerializeField] private TMP_Text _Ip_text;
         [SerializeField] private GraphPointer _graphPointer;
+        [SerializeField] private GraphLine _graphLine;
         [SerializeField] private Table _table;
         
         [Header("Graph")] 
         [SerializeField] private RectTransform _graphContainer;
+        [SerializeField] private TMP_Text _xText;
+        [SerializeField] private TMP_Text _yText;
+        [SerializeField] private string _xDefaultName;
+        [SerializeField] private string _yDefaultName;
         
         [Header("Label")] 
         [SerializeField] private RectTransform _labelContainer;
@@ -43,6 +48,7 @@ namespace VirtualLaboratory.Lab2
 
             ClearGrid();
             _graphPointer.Init(in maxPoints);
+            _graphLine.Init();
             _table.Init(in maxPoints);
         }
 
@@ -62,9 +68,33 @@ namespace VirtualLaboratory.Lab2
                 _table.UpdateRow(i, x_array[i], y_array[i]);
         }
 
+        public void SetAxisName(string xName, string yName)
+        {
+            if (xName != null)
+                _xText.text = xName;   
+            
+            if (yName != null)
+                _yText.text = yName;
+        }
+
+        public void AddLine(in Vector2 point1, in Vector2 point2)
+        {
+            float x1 = ((point1.x - _minX) / (_maxX - _minX)) * _graphWidth;
+            float x2 = ((point2.x - _minX) / (_maxX - _minX)) * _graphWidth;
+            float y1 = ((point1.y - _minY) / (_maxY - _minY)) * _graphHeight;
+            float y2 = ((point2.y - _minY) / (_maxY - _minY)) * _graphHeight;
+
+            Vector2 newPoint1 = new Vector2(x1 + _widthOffset, y1 + _heightOffset);
+            Vector2 newPoint2 = new Vector2(x2 + _widthOffset, y2 + _heightOffset);
+            
+            _graphLine.AddLine(newPoint1, newPoint2);
+        }
+
         public void ClearGraph()
         {
+            SetAxisName(_xDefaultName, _yDefaultName);
             _graphPointer.HideGraph();
+            _graphLine.Clear();
             _table.HideTable();
         }
 
