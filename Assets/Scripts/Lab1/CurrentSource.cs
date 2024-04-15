@@ -9,20 +9,27 @@ namespace VirtualLaboratory
         [SerializeField] private float _minValue;
         [SerializeField] private float _maxValue;
         [Min(1)][SerializeField] private float _denominator;
+        [SerializeField] private float _offset = 0f;
         [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _maxI;
         [SerializeField] private ScaleMeasurer _ammeter;
         [SerializeField] private CurrentInput _output;
 
         private float _currentI;
+
+        public void Init(CurrentInput output)
+        {
+            _output = output;
+            Init();
+        }
         
         public void Init()
         {
             _currentI = _minValue / _denominator;
-            _ammeter.Init(_minValue / _denominator, _maxValue / _denominator);
+            _ammeter.Init(_minValue / _denominator, (_maxValue / _denominator) + _offset);
             _output.SetCurrent(_currentI);
             
-            _maxI.text = (_maxValue / _denominator).ToString("F1");
+            _maxI.text = ((_maxValue / _denominator) + _offset).ToString("0.##");
             _slider.minValue = _minValue;
             _slider.maxValue = _maxValue;
             _slider.value = _minValue;
@@ -44,7 +51,7 @@ namespace VirtualLaboratory
 
         private void SetI()
         {
-            _currentI = _slider.value / _denominator;
+            _currentI = (_slider.value / _denominator) + _offset;
 
             if (_currentI < 0.1f)
                 _currentI = 0f;

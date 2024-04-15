@@ -18,6 +18,7 @@ namespace VirtualLaboratory.Lab1
         [SerializeField] private Noiser _noiser;
         
         private float _currentI;
+        private float _currentR;
         private MaterialLab _currentMaterial;
         
         public void Init(float startTemp)
@@ -71,7 +72,7 @@ namespace VirtualLaboratory.Lab1
         public void UpdateGraph()
         {
             if (_currentI > 0.1f)
-                _windowGraph.AddPoint(_currentMaterial.Resistance + _noiser.GetNoise(_currentMaterial.Resistance), _currentMaterial.Temperature);
+                _windowGraph.AddPoint(_currentR, _currentMaterial.Temperature);
             else
                 Debug.Log("0");//_windowGraph.AddPoint(0f, _currentMaterial.Temperature);
         }
@@ -81,9 +82,11 @@ namespace VirtualLaboratory.Lab1
             _currentMaterial.SetResistance();
 
             if (_currentI > 0.1f)
-                _voltmeter.SetValue(_currentMaterial.Resistance);
+                _currentR = _currentMaterial.Resistance + _noiser.GetNoise(_currentMaterial.Resistance);
             else
-                _voltmeter.SetValue(0f);
+                _currentR = 0f;
+            
+            _voltmeter.SetValue(_currentR);
         }
     }
 }
