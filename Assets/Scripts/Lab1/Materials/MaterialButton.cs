@@ -28,9 +28,6 @@ namespace VirtualLaboratory.Lab1
 
         public void Disable() => _enabled.gameObject.SetActive(false);
 
-        private void OnClicked()
-        {
-            _switcher.SetMaterial(this);
-        }
+        private void OnClicked() => _switcher.SetMaterial(this);
     }
 }

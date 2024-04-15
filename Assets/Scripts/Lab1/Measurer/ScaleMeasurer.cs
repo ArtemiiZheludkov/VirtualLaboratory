@@ -21,11 +21,11 @@ namespace VirtualLaboratory
             _maxValue = maxValue;
             
             float value = minValue;
-            _valueText.text = value.ToString("F1");
+            _valueText.text = value.ToString("0.##");
             
             for (int i = 0; i < _scaleTexts.Length; i++)
             {
-                _scaleTexts[i].text = value.ToString("F1");
+                _scaleTexts[i].text = value.ToString("0.##");
                 value += (maxValue - minValue) / (_scaleTexts.Length - 1);
             }
             
@@ -34,14 +34,14 @@ namespace VirtualLaboratory
 
         public void SetValue(float value)
         {            
-            _valueText.text = value.ToString("F1");
+            _valueText.text = value.ToString("0.##");
             
             float z = value / _maxValue;
 
-            if (z < _minValue)
-                z = _minValue;
-            else if (z > _maxValue)
-                z = _maxValue;
+            if (z < 0f)
+                z = 0f;
+            else if (z > 1f)
+                z = 1f;
 
             z *= _maxAngle;
             
