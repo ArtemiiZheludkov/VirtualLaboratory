@@ -71,7 +71,7 @@ namespace VirtualLaboratory.Lab2
                                   +" +- " +_processor.ErrorB.ToString("#0.000");
             
             string text3 = "T<sub>1</sub> = (e / k) / a = " +T.ToString("#0.00") 
-                                  +" +- " +errorT.ToString("#0.000");
+                                  +" +- " +errorT.ToString("#0.000") +" (K)";
             
             _resultView.AddTextLine(text1);
             _resultView.AddTextLine(text2);

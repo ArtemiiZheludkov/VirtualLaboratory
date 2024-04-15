@@ -47,7 +47,7 @@ namespace VirtualLaboratory.Lab2
             
             string text2 = "b = " +_processor.B.ToString("#0.00") 
                                   +" +- " +_processor.ErrorB.ToString("#0.000") 
-                                  + " = I<sub>2</sub>";
+                                  + " = I<sub>2</sub>" +" (mkA)";
             
             _resultView.AddTextLine(text1);
             _resultView.AddTextLine(text2);
