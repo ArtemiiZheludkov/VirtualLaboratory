@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VirtualLaboratory.Lab1
 {
     [Serializable]
-    public class MaterialLab
+    public class MaterialLab : DefaultVariant
     {
         public MaterialType Type => _material;
         public float Temperature { get; private set; }

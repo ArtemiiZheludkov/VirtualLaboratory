@@ -5,13 +5,19 @@ namespace VirtualLaboratory
 {
     public class DefaultVariantСhooser : VariantСhooser
     {
-        public int Variant { get; private set; }
+        public int VariantNumber { get; private set; }
 
         [Header("VARIANT SETTINGS")]
         [SerializeField] private DefaultVariant[] _variants;
         [SerializeField] private TMP_Text _variantText;
 
-        public void Init()
+        public void Init(DefaultVariant[] newVariants)
+        {
+            _variants = newVariants;
+            Init();
+        }
+
+        public override void Init()
         {
             CreateButtons(_variants.Length);
             OnClickedVariant(_buttons[0]);
@@ -32,10 +38,10 @@ namespace VirtualLaboratory
                 variant.gameObject.SetActive(false);
             
             _variantText.gameObject.SetActive(true);
-            _variantText.text = _variants[Variant - 1].FullName();
+            _variantText.text = _variants[VariantNumber - 1].FullName();
         }
 
-        protected override void SetVariant(int index) => Variant = index + 1;
+        protected override void SetVariant(int index) => VariantNumber = index + 1;
 
         protected override void OnCreateButton(int index) => _buttons[index].Init(_variants[index], OnClickedVariant);
     }

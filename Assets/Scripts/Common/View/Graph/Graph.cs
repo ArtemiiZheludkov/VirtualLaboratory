@@ -7,13 +7,15 @@ namespace VirtualLaboratory
 {
     public class Graph : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _Ip_text;
         [SerializeField] private GraphPointer _graphPointer;
         [SerializeField] private GraphLine _graphLine;
         [SerializeField] private Table _table;
         
         [Header("Graph")] 
         [SerializeField] private RectTransform _graphContainer;
+        
+        [Header("Text")]
+        [SerializeField] private TMP_Text _addName;
         [SerializeField] private TMP_Text _xText;
         [SerializeField] private TMP_Text _yText;
         [SerializeField] private string _xDefaultName;
@@ -52,10 +54,13 @@ namespace VirtualLaboratory
             _table.Init(in maxPoints);
         }
 
-        public void UpdateGraph(float[] x_array, float[] y_array, float Ip)
+        public void SetAddNameY(string addName)
         {
-            _Ip_text.text = "Ip = " + Ip.ToString("0.##") + " (mA)";
-            
+            _addName.text = addName;
+        }
+
+        public void UpdateGraph(float[] x_array, float[] y_array)
+        {
             UpdateBorders(x_array.Min(), x_array.Max(), out _minX, out _maxX);
             UpdateBorders(y_array.Min(), y_array.Max(), out _minY, out _maxY);
             CreateGrid();

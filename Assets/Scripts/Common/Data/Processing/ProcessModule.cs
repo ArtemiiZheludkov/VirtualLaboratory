@@ -18,13 +18,13 @@ namespace VirtualLaboratory
             _resultView = resultView;
         }
         
-        public virtual void Enable(float[] x_array, float[] y_array, float currentIp)
+        public virtual void Enable(float[] x_array, float[] y_array)
         {
             _graph.ClearGraph();
             _resultView.Clear();
             
             var (newX, newY) = PrepareData(x_array, y_array);
-            _graph.UpdateGraph(newX, newY, currentIp);
+            _graph.UpdateGraph(newX, newY);
             
             ProcessData(newX, newY);
             ShowProcessResult();

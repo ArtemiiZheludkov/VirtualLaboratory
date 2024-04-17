@@ -6,9 +6,11 @@ namespace VirtualLaboratory
     {
         [SerializeField] private VariantButton _buttonPrefab;
         [SerializeField] private Transform _buttonsParent;
-        
+
         protected VariantButton[] _buttons;
-        
+
+        public abstract void Init();
+
         protected abstract void SetVariant(int index);
 
         protected abstract void OnCreateButton(int index);

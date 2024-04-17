@@ -89,7 +89,9 @@ namespace VirtualLaboratory.Lab2
                 if (_index >= 0 && _index <= _data.MaxIndex)
                 {
                     _dataView.UpdateScheme(_data.GetUzByIndex(_index), _data.GetIzByIndex(_currentIp, _index));
-                    _graph.UpdateGraph(_data.GetUzToIndex(_index), _data.GetIzToIndex(_currentIp, _index), _currentIp);
+                    _graph.UpdateGraph(_data.GetUzToIndex(_index), _data.GetIzToIndex(_currentIp, _index));
+                    string addName = "Ip = " + _currentIp.ToString("0.##") + " (mA)";
+                    _graph.SetAddNameY(addName);
                     _index += 1;
                 }
 

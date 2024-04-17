@@ -20,7 +20,7 @@ namespace VirtualLaboratory.Lab1
         [SerializeField] private TMP_Text _TedcText;
         [SerializeField] private TMP_Text _curText;
         [SerializeField] private Thermostat _output;
-        [SerializeField] private MaterialSwitcher _switcher;
+        //[SerializeField] private MaterialChooser _switcher;
 
         private float _currentT, _targetT;
         private bool _isHeat = false;
@@ -30,7 +30,7 @@ namespace VirtualLaboratory.Lab1
             _isHeat = false; 
             _currentT = _startT;
             _targetT = _currentT;
-            _switcher.SetStartTemperature(_startT);
+            //_switcher.SetStartTemperature(_startT);
             _output.Init(_startT);
             
             _slider.minValue = 0f;
