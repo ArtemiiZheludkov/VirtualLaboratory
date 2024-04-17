@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace VirtualLaboratory.Lab2
+namespace VirtualLaboratory
 {
     public class ResultView : MonoBehaviour
     {

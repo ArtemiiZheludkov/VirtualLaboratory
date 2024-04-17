@@ -1,13 +1,13 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace VirtualLaboratory.Lab2
+namespace VirtualLaboratory
 {
     public class DefaultVariantСhooser : VariantСhooser
     {
         public int Variant { get; private set; }
 
-        [Header("MATERIAL SETTINGS")]
+        [Header("VARIANT SETTINGS")]
         [SerializeField] private DefaultVariant[] _variants;
         [SerializeField] private TMP_Text _variantText;
 

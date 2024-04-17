@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace VirtualLaboratory.Lab1
+namespace VirtualLaboratory
 {
     public class Noiser : MonoBehaviour
     {

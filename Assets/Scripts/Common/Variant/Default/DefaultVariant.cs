@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace VirtualLaboratory.Lab2
+namespace VirtualLaboratory
 {
     [Serializable]
     public class DefaultVariant : IVariant

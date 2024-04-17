@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace VirtualLaboratory.Lab2
+namespace VirtualLaboratory
 {
     public class GraphPointer : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace VirtualLaboratory.Lab2
+﻿namespace VirtualLaboratory
 {
     public class DefaultModule : ProcessModule
     {

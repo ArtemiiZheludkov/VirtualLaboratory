@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace VirtualLaboratory.Lab2
+namespace VirtualLaboratory
 {
     public abstract class VariantСhooser : MonoBehaviour
     {
