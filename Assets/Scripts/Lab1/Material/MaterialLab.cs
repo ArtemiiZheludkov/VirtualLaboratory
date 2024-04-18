@@ -28,6 +28,23 @@ namespace VirtualLaboratory.Lab1
             SetResistance();
         }
 
+        public float CalculateResistance(float T)
+        {
+            float R = 0f;
+            
+            if (_material == MaterialType.Metal)
+            {
+                float r = _resistivity + _resistivity * _koefTemperature * (Temperature - _startT);
+                R = r * (_l / _s);
+            }
+            else if (_material == MaterialType.Semiconductor)
+            {
+                R = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Temperature));
+            }
+
+            return R;
+        }
+
         public void SetResistance()
         {
             if (_material == MaterialType.Metal)

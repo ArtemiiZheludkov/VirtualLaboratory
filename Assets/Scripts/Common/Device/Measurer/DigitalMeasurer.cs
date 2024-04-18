@@ -16,7 +16,7 @@ namespace VirtualLaboratory
 
         public void SetValue(float value)
         {
-            _valueText.text = value.ToString("F2");
+            _valueText.text = value.ToString("#0.00");
         }
     }
 }
