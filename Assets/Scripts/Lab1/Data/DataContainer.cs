@@ -26,8 +26,8 @@ namespace VirtualLaboratory.Lab1
             }
         }
 
-        public float[] GetUzData() => X;
-        public float[] GetIzData() => Y;
+        public float[] GetXData() => X;
+        public float[] GetYData() => Y;
         
         public float GetXByIndex(int index) => X[index];
 

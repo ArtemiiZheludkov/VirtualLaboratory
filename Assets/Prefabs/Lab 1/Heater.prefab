@@ -776,17 +776,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e91e7db6c2470d9a160cd5474b8967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startT: 20
-  _maxT: 100
-  _stepT: 2
-  _stepTUpdate: 0.2
-  _timeUpdate: 0.5
   _slider: {fileID: 2900095670022160512}
-  _maxTedc: {fileID: 7287348386887385173}
+  _currentText: {fileID: 4868356622443625471}
+  _minText: {fileID: 70987574784699577}
+  _maxText: {fileID: 7287348386887385173}
   _TedcText: {fileID: 1433278991790804128}
-  _curText: {fileID: 4868356622443625471}
-  _output: {fileID: 0}
-  _switcher: {fileID: 0}
 --- !u!1 &4753970209390915179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,13 +1291,13 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

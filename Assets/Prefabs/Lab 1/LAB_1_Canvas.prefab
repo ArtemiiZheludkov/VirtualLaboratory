@@ -357,29 +357,28 @@ MonoBehaviour:
   _controlButton: {fileID: 2774671264695818576}
   _blockPanel: {fileID: 5137404673692098774}
   _experimentController: {fileID: 508567838423253751}
-  _heater: {fileID: 5628220610877678083}
   _materials:
   - _fullName: "\u041C\u0435\u0442\u0430\u043B 1"
     _buttonName: "\u041C 1"
     _material: 0
-    _koefTemperature: 0
-    _resistivity: 0
-    _l: 0
-    _s: 0
+    _koefTemperature: 0.00657
+    _resistivity: 0.000000097
+    _l: 0.015
+    _s: 5.8e-13
   - _fullName: "\u041C\u0435\u0442\u0430\u043B 2"
     _buttonName: "\u041C 2"
     _material: 0
-    _koefTemperature: 0
-    _resistivity: 0
-    _l: 0
-    _s: 0
+    _koefTemperature: 0.00393
+    _resistivity: 0.0000000154
+    _l: 0.015
+    _s: 5.8e-13
   - _fullName: "\u041D\u0430\u043F\u0456\u0432\u043F\u0440\u043E\u0432\u0456\u0434\u043D\u0438\u043A"
     _buttonName: "\u041D\u041F"
     _material: 1
-    _koefTemperature: 0
-    _resistivity: 0
-    _l: 0
-    _s: 0
+    _koefTemperature: 1.567e-19
+    _resistivity: 0.000000936
+    _l: 0.015
+    _s: 0.00000049
   _starT: 293
   _stepT: 2
   _stopT: 393
@@ -1500,10 +1499,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bd2b8851f840fcbe21b3d8f3c90ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateTime: 0.5
   _stepTUpdate: 0.5
   _dataView:
     _voltmeter: {fileID: 7142379162060869774}
     _thermometer: {fileID: 2252983418971276793}
+  _heater: {fileID: 5628220610877678083}
   _graph: {fileID: 9125409174890675777}
   _noiser: {fileID: 4372959357213833945}
 --- !u!1 &5932699839601078546

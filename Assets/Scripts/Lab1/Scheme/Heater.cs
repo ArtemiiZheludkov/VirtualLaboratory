@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,82 +7,50 @@ namespace VirtualLaboratory.Lab1
 {
     public class Heater : MonoBehaviour
     {
-        [Header("Heat"), Space(5)] 
-        [SerializeField] private float _startT;
-        [SerializeField] private float _maxT;
-        [SerializeField] private float _stepT;
-        [SerializeField] private float _stepTUpdate;
-        [SerializeField] private float _timeUpdate;
-        
-        [Header("UI")]
         [SerializeField] private Slider _slider;
-        [SerializeField] private TMP_Text _maxTedc;
+        [SerializeField] private TMP_Text _currentText;
+        [SerializeField] private TMP_Text _minText;
+        [SerializeField] private TMP_Text _maxText;
         [SerializeField] private TMP_Text _TedcText;
-        [SerializeField] private TMP_Text _curText;
+        
+        private Action<float> OnSliderMoved;
+        private float _startT, _stepT, _maxT, _targetT;
 
-        private float _currentT, _targetT;
-        private bool _isHeat = false;
-
-        public void Init()
+        public void Init(Action<float> onSliderMoved, float startT, float stepT, float maxT)
         {
-            _isHeat = false; 
-            _currentT = _startT;
-            _targetT = _currentT;
+            OnSliderMoved = onSliderMoved;
+            _startT = startT - 1;
+            _stepT = stepT;
+            _maxT = maxT;
             
-            _slider.minValue = 0f;
-            _slider.maxValue = (_maxT - _startT) / _stepT;
-            _slider.value = 0f;
+            _targetT = _startT;
+            
+            _slider.minValue = _startT;
+            _slider.maxValue = _maxT;
+            _slider.value = _startT;
 
-            _maxTedc.text = (_slider.maxValue / 10f).ToString("F1");
-            _curText.text = (_slider.value / 10f).ToString("F1");
-            
-            SetTedcText();
+            _currentText.text = _startT.ToString("F0");
+            _minText.text = _startT.ToString("F0");
+            _maxText.text = _maxT.ToString("F0");
+            _TedcText.text = "0.0";
         }
 
-        public void StartGauge()
-        {
-            _isHeat = true;
-            _slider.value = 0f;
-            _currentT = _startT;
-            _targetT = _currentT;
-            
-            SetTedcText();
+        public void EnableInteractivity() => _slider.interactable = true;
+        
+        public void DisableInteractivity() => _slider.interactable = false;
 
-            StartCoroutine(Heat());
-        }
-
-        public void Stop()
+        public float GetTargetT() => _targetT;
+        
+        public void SetValue(float T)
         {
-            _isHeat = false;
-            _slider.value = 0f;
+            _TedcText.text = (((T - _startT) / _stepT) / 10f).ToString("#0.00");
         }
 
         public void OnSliderMove()
         {
-            _targetT = _startT + (_stepT * _slider.value);
-            _curText.text = ((_slider.value / 10f) - 0.01f).ToString("F1");
-        }
-
-        private void SetTedcText()
-        {
-            _TedcText.text = (((_currentT - _startT) / _stepT) / 10f).ToString("F2");
-        }
-
-        private IEnumerator Heat()
-        {
-            while (_isHeat == true)
-            {
-                yield return new WaitForSeconds(_timeUpdate);
-                
-                if (_isHeat == false)
-                    yield break;
-
-                if (_currentT < _targetT && _currentT <= _maxT)
-                {
-                    SetTedcText();
-                    _currentT += _stepTUpdate;
-                }
-            }
+            _targetT = _slider.value;
+            _currentText.text = _targetT.ToString("F0");
+            OnSliderMoved?.Invoke(_targetT);
         }
     }
 }

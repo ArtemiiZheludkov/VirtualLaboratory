@@ -8,6 +8,14 @@ namespace VirtualLaboratory.Lab1
     {
         [SerializeField] private DigitalMeasurer _voltmeter;
         [SerializeField] private DigitalMeasurer _thermometer;
+        
+        private Heater _heater;
+
+        public void Init(Heater heater)
+        {
+            _heater = heater;
+            Init();
+        }
 
         public void Init()
         {
@@ -24,6 +32,7 @@ namespace VirtualLaboratory.Lab1
         {
             _voltmeter.SetValue(U);
             _thermometer.SetValue(T);
+            _heater.SetValue(T);
         }
     }
 }

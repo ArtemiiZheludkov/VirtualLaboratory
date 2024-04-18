@@ -6,7 +6,7 @@ namespace VirtualLaboratory
 {
     public class CurrentSource : MonoBehaviour
     {
-        [SerializeField] private float _minValue;
+        [SerializeField] private float _minValue = 0f;
         [SerializeField] private float _maxValue;
         [Min(1)][SerializeField] private float _denominator;
         [SerializeField] private float _offset = 0f;

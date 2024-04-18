@@ -28,8 +28,8 @@ namespace VirtualLaboratory.Lab1
 
             if (_material == MaterialType.Metal)
             {
-                float r = _resistivity + _resistivity * _koefTemperature * (T - _startT);
-                R = r * (_l / _s);
+                float r = _resistivity * (_l / _s);
+                R = r + r * _koefTemperature * (T - _startT);
             }
             else if (_material == MaterialType.Semiconductor)
             {

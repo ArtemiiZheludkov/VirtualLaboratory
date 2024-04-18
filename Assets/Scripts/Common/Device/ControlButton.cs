@@ -22,8 +22,6 @@ namespace VirtualLaboratory
             
             _start.onClick.AddListener(StartClicked);
             _stop.onClick.AddListener(StopClicked);
-
-            StopClicked();
         }
         
         public void SetStart() => StopClicked();

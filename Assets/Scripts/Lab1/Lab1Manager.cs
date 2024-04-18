@@ -6,7 +6,6 @@ namespace VirtualLaboratory.Lab1
     {
         [Header("Lab 1")]
         [SerializeField] private ExperimentController _experimentController;
-        [SerializeField] private Heater _heater;
         [SerializeField] private MaterialLab[] _materials;
         
         [Header("Temperature settings")]
@@ -24,25 +23,22 @@ namespace VirtualLaboratory.Lab1
             
             _variantChoiser.Init(_materials);
             _dataContainer = new DataContainer();
-            
-            _heater.Init();
         }
 
         protected override void StartClicked()
         {
             base.StartClicked();
-            
-            _materials[_variantChoiser.VariantNumber].Init(_starT);
-            _dataContainer.LoadData(_materials[_variantChoiser.VariantNumber], _starT, _stepT, _stopT);
-            _experimentController.Init(_dataContainer);
-            
-            _heater.StartGauge();
+
+            MaterialLab material = _materials[_variantChoiser.VariantNumber - 1];
+            material.Init(_starT);
+            _dataContainer.LoadData(material, _starT, _stepT, _stopT);
+            _experimentController.Init(_dataContainer, material, _starT, _stepT, _stopT);
         }
 
         protected override void StopClicked()
         {
             base.StopClicked();
-            _heater.Stop();
+            _experimentController.Stop();
         }
     }
 }

@@ -30,6 +30,7 @@ namespace VirtualLaboratory.Lab2
             _isPaused = false;
             
             _graph.ClearGraph();
+            _controlButton.SetStart();
         }
 
         public override void SetCurrent(float Ip)
