@@ -45,8 +45,11 @@ namespace VirtualLaboratory
 
         public void SetHeaders(string xName, string yName)
         {
-            _xText.text = xName;
-            _yText.text = yName;
+            if (xName != null)
+                _xText.text = xName;
+
+            if (yName != null)
+                _yText.text = yName;
         }
         
         private void CreateElement()

@@ -162,7 +162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7944546207821428470}
-  - component: {fileID: 1278341320943023561}
+  - component: {fileID: 2430978529994336378}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -191,7 +191,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1278341320943023561
+--- !u!114 &2430978529994336378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,10 +200,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2273210948565437042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d59d9921434ab1ab7ee2c252b0e508, type: 3}
+  m_Script: {fileID: 11500000, guid: 993185fb853642e981ced42bb75862c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rowPrefab: {fileID: 3629060534076207838, guid: 035facc9a8a1c654abdab89998ba87aa, type: 3}
+  _xText: {fileID: 3310058480203307260}
+  _yText: {fileID: 1311094443317641111}
+  _rowPrefab: {fileID: 7627567338974775064, guid: 9d0aad647ed2e114cbf2d2f2d836e42a, type: 3}
   _tableContent: {fileID: 4295950889615306733}
 --- !u!1 &2688446262988754392
 GameObject:
@@ -319,7 +321,7 @@ GameObject:
   - component: {fileID: 1239137145001658544}
   - component: {fileID: 1311094443317641111}
   m_Layer: 0
-  m_Name: R_text
+  m_Name: Y_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: R(Om)
+  m_text: Iz (mkA)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
   m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
@@ -399,7 +401,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.35
+  m_fontSize: 24.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -528,7 +530,7 @@ GameObject:
   - component: {fileID: 3941916195512143493}
   - component: {fileID: 3310058480203307260}
   m_Layer: 0
-  m_Name: T_text
+  m_Name: X_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: T(K)
+  m_text: Uz (V)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
   m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}

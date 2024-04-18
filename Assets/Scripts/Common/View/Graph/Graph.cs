@@ -76,10 +76,16 @@ namespace VirtualLaboratory
         public void SetAxisName(string xName, string yName)
         {
             if (xName != null)
-                _xText.text = xName;   
-            
+                _xText.text = xName;
+            else
+                xName = _xText.text;
+
             if (yName != null)
                 _yText.text = yName;
+            else
+                yName = _yText.text;
+            
+            _table.SetHeaders(xName, yName);
         }
 
         public void AddLine(in Vector2 start, in Vector2 end)

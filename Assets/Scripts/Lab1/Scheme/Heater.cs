@@ -19,8 +19,6 @@ namespace VirtualLaboratory.Lab1
         [SerializeField] private TMP_Text _maxTedc;
         [SerializeField] private TMP_Text _TedcText;
         [SerializeField] private TMP_Text _curText;
-        [SerializeField] private Thermostat _output;
-        //[SerializeField] private MaterialChooser _switcher;
 
         private float _currentT, _targetT;
         private bool _isHeat = false;
@@ -30,8 +28,6 @@ namespace VirtualLaboratory.Lab1
             _isHeat = false; 
             _currentT = _startT;
             _targetT = _currentT;
-            //_switcher.SetStartTemperature(_startT);
-            _output.Init(_startT);
             
             _slider.minValue = 0f;
             _slider.maxValue = (_maxT - _startT) / _stepT;
@@ -51,9 +47,7 @@ namespace VirtualLaboratory.Lab1
             _targetT = _currentT;
             
             SetTedcText();
-            _output.SetTemperature(_currentT);
-            _output.StartGauge(_maxT);
-            
+
             StartCoroutine(Heat());
         }
 
@@ -87,8 +81,6 @@ namespace VirtualLaboratory.Lab1
                 {
                     SetTedcText();
                     _currentT += _stepTUpdate;
-                    _output.SetTemperature(_currentT);
-                    _output.UpdateGraph();
                 }
             }
         }

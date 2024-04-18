@@ -7,12 +7,8 @@ namespace VirtualLaboratory.Lab1
     public class MaterialLab : DefaultVariant
     {
         public MaterialType Type => _material;
-        public float Temperature { get; private set; }
-        public float Resistance { get; private set; }
-        public string Name => _buttonName;
 
         [SerializeField] private MaterialType _material;
-        [SerializeField] private string _buttonName;
         [SerializeField] private float _koefTemperature;
         [SerializeField] private float _resistivity;
         [SerializeField] private float _l;
@@ -23,59 +19,21 @@ namespace VirtualLaboratory.Lab1
         
         public void Init(float startTemperature)
         {
-            Temperature = startTemperature + 273f;
-            _startT = startTemperature + 273f;
-            SetResistance();
+            _startT = startTemperature;
         }
 
         public float CalculateResistance(float T)
         {
             float R = 0f;
-            
+
             if (_material == MaterialType.Metal)
             {
-                float r = _resistivity + _resistivity * _koefTemperature * (Temperature - _startT);
+                float r = _resistivity + _resistivity * _koefTemperature * (T - _startT);
                 R = r * (_l / _s);
             }
             else if (_material == MaterialType.Semiconductor)
             {
-                R = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Temperature));
-            }
-
-            return R;
-        }
-
-        public void SetResistance()
-        {
-            if (_material == MaterialType.Metal)
-            {
-                float r = _resistivity + _resistivity * _koefTemperature * (Temperature - _startT);
-                Resistance = r * (_l / _s);
-            }
-            else if (_material == MaterialType.Semiconductor)
-            {
-                Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Temperature));
-            }
-        }
-
-        public void SetTemperature(float T)
-        {
-            Temperature = T + 273f;
-        }
-
-        public float ResistanceAtMaxTemperature(float maxT)
-        {
-            float R = 0f;
-            float Tkelv = 273 + maxT;
-            
-            if (_material == MaterialType.Metal)
-            {
-                float r = _resistivity + _resistivity * _koefTemperature * (Tkelv - _startT);
-                R = r * (_l / _s);
-            }
-            else if (_material == MaterialType.Semiconductor)
-            {
-                Resistance = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * Tkelv));
+                R = _resistivity * Mathf.Exp(_koefTemperature / (2 * K * T));
             }
 
             return R;

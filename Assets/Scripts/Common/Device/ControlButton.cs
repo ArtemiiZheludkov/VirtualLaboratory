@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VirtualLaboratory.Lab2
+namespace VirtualLaboratory
 {
     public class ControlButton : MonoBehaviour
     {

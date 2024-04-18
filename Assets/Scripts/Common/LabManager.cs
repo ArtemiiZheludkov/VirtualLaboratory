@@ -7,6 +7,7 @@ namespace VirtualLaboratory
         [Header("Default")]
         [SerializeField] protected DefaultVariantСhooser _variantChoiser;
         [SerializeField] protected CurrentSource _currentSource;
+        [SerializeField] protected ControlButton _controlButton;
         [SerializeField] protected GameObject _blockPanel;
         
         private void Start()
@@ -14,10 +15,14 @@ namespace VirtualLaboratory
             Init();
         }
 
+        protected abstract CurrentInput GetCurrentInput();
+
         protected virtual void Init()
         {
             _variantChoiser.Init();
             _blockPanel.gameObject.SetActive(true);
+            _controlButton.Init(StartClicked, StopClicked);
+            _currentSource.Init(GetCurrentInput());
         }
 
         protected virtual void StartClicked()
