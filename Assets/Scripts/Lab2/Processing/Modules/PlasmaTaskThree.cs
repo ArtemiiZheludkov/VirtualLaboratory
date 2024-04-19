@@ -25,9 +25,9 @@ namespace VirtualLaboratory.Lab2
             _processor2 = new LeastSquares();
         }
 
-        public override void Enable(float[] x_array, float[] y_array, float currentIp)
+        public override void Enable(float[] x_array, float[] y_array)
         {
-            base.Enable(x_array, y_array, currentIp);
+            base.Enable(x_array, y_array);
             string yText = "LnI<sub>z</sub> (mkA)";
             _graph.SetAxisName(null, yText);
         }

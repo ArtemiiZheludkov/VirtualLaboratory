@@ -1,64 +1,27 @@
-﻿using UnityEngine;
-
-namespace VirtualLaboratory.Lab2
+﻿namespace VirtualLaboratory.Lab2
 {
-    public class DataProcessor : VariantСhooser
+    public class DataProcessor : DefaultDataProcessor
     {
-        [SerializeField] private GameObject _blockPanel;
-
-        [Header("MODULES")] 
-        [SerializeField] private ProcessModule[] _modules;
-        [SerializeField] private ResultView _resultView;
-
-        private DataContainer _data;
-        private Graph _graph;
-        private ProcessModule _currentModule;
         private float _currentIp;
+        private DataContainer _data;
 
         public void Init(DataContainer data, Graph graph)
         {
             _data = data;
-            _graph = graph;
-            
-            _resultView.Init();
-            CreateButtons(_modules.Length);
-            
-            _buttons[0].Enable();
-            _currentModule = _modules[0];
-            _blockPanel.SetActive(true);
-
-            foreach (ProcessModule module in _modules)
-                module.Init(_graph, _resultView);
+            Init(graph);
         }
 
         public void EnableProcessing(float currentIp)
         {
             _currentIp = currentIp;
-            OnClickedVariant(_buttons[0]);
-            _blockPanel.SetActive(false);
+            EnableProcessing();
         }
 
-        public void DisableProcessing()
+        protected override void EnableCurrentModule()
         {
-            for (int i = 0; i < _buttons.Length; i++)
-            {
-                _buttons[i].Disable();
-                _modules[i].Disable();
-            }
-            
-            _buttons[0].Enable();
-            _currentModule = _modules[0];
-            _blockPanel.SetActive(true);
+            string addName = "Ip = " + _currentIp.ToString("0.##") + " (mA)";
+            _graph.SetAddNameY(addName);
+            _currentModule.Enable(_data.GetUzData(), _data.GetIzData(_currentIp));
         }
-
-        protected override void OnClickedVariant(VariantButton buttonCall)
-        {
-            base.OnClickedVariant(buttonCall);
-            _currentModule.Enable(_data.GetUzData(), _data.GetIzData(_currentIp), _currentIp);
-        }
-
-        protected override void SetVariant(int index) => _currentModule = _modules[index];
-        
-        protected override void OnCreateButton(int index) => _buttons[index].Init(_modules[index], OnClickedVariant);
     }
 }
