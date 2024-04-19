@@ -10,7 +10,7 @@ namespace VirtualLaboratory.Lab1
         
         [SerializeField] private DataView _dataView;
         [SerializeField] private Heater _heater;
-        //[SerializeField] private DataProcessor _dataProcessor;
+        [SerializeField] private DataProcessor _dataProcessor;
         [SerializeField] private Graph _graph;
         [SerializeField] private Noiser _noiser;
 
@@ -18,7 +18,7 @@ namespace VirtualLaboratory.Lab1
         private MaterialLab _material;
         private int _index;
 
-        private float _currentI, _currentT, _targetT;
+        private float _currentI, _currentR, _currentT, _targetT;
         private bool _isStarted, _isPaused;
 
         public void Init(DataContainer data, MaterialLab material, float startT, float stepT, float maxT)
@@ -30,7 +30,7 @@ namespace VirtualLaboratory.Lab1
             _heater.Init(SetTargetT, startT, stepT, maxT);
             _dataView.Init(_heater);
             _graph.Init(_data.MaxIndex);
-            //_dataProcessor.Init(_data, _graph);
+            _dataProcessor.Init(material.Type, _data, _graph);
 
             _isStarted = false;
             _isPaused = false;
@@ -96,7 +96,7 @@ namespace VirtualLaboratory.Lab1
             Debug.Log("Start coroutine ----------- ");
             _index = 0;
             _graph.ClearGraph();
-            //_dataProcessor.DisableProcessing();
+            _dataProcessor.DisableProcessing();
             
             if (_currentT >= _targetT)
                 _isPaused = true;
@@ -112,10 +112,14 @@ namespace VirtualLaboratory.Lab1
                 
                 if (_index >= 0 && _index <= _data.MaxIndex)
                 {
-                    _dataView.UpdateScheme(_material.CalculateResistance(_currentT), _currentT);
+                    _currentR = _material.CalculateResistance(_currentT);
+                    _currentR += _noiser.GetNoise(_currentR);
+                    
+                    _dataView.UpdateScheme(_currentR, _currentT);
                     
                     if (_currentT >= _data.GetXByIndex(_index))
                     {
+                        _data.ChangeYByIndex(_index, _currentR);
                         _graph.UpdateGraph(_data.GetXToIndex(_index), _data.GetYToIndex(_index));
                         _index += 1;
                     }
@@ -128,7 +132,7 @@ namespace VirtualLaboratory.Lab1
 
                 if (_index > _data.MaxIndex)
                 {
-                    //_dataProcessor.EnableProcessing(_currentIp);
+                    _dataProcessor.EnableProcessing();
                     break;
                 }
             }

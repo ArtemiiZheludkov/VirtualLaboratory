@@ -4,11 +4,10 @@ namespace VirtualLaboratory
 {
     public abstract class DefaultDataProcessor : VariantСhooser
     {
+        [Header("Default")] 
         [SerializeField] protected GameObject _blockPanel;
-
-        [Header("MODULES")] 
-        [SerializeField] protected ProcessModule[] _modules;
         [SerializeField] protected ResultView _resultView;
+        [SerializeField] protected ProcessModule[] _modules;
         
         protected Graph _graph;
         protected ProcessModule _currentModule;

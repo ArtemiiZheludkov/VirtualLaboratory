@@ -37,6 +37,8 @@ namespace VirtualLaboratory.Lab1
         
         public float[] GetYToIndex(int index) => TrimArray(Y, index);
 
+        public void ChangeYByIndex(int index, float value) => Y[index] = value;
+        
         private float[] TrimArray(float[] original, int desiredCount)
         {
             desiredCount += 1;
