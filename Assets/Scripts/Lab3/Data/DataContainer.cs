@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace VirtualLaboratory.Lab3
 {
@@ -8,11 +7,11 @@ namespace VirtualLaboratory.Lab3
         public int MaxIndex => (Ip.Length - 1);
 
         private DataProvider _dataProvider = new();
-        
-        private float[] Ip;
-        private float[] Uplus;
-        private float[] Uminus;
-        private Dictionary<int, MagneticData> _magneticData;
+
+        public float[] Ip;
+        public float[] Uplus;
+        public float[] Uminus;
+        private MagneticData[] _magneticData;
 
         public void Init(int variant)
         {
@@ -24,15 +23,11 @@ namespace VirtualLaboratory.Lab3
         public float[] GetUplus() => Uplus;
         public float[] GetUminus() => Uminus;
         
-        public float GetIpByIndex(int index) => Ip[index];
-        public float GetUplusByIndex(int index) => Uplus[index];
-        public float GetUminusByIndex(int index) => Uminus[index];
-        
         public float[] GetIpToIndex(int index) => TrimArray(Ip, index);
         public float[] GetUplusToIndex(int index) => TrimArray(Uplus, index);
         public float[] GetUminusToIndex(int index) => TrimArray(Uminus, index);
 
-        public MagneticData GetMagneticData(int value) => _magneticData[value];
+        public ref MagneticData GetMagneticData(int value) => ref _magneticData[(value/10) - 1];
         
         private void LoadData(int variant)
         {
@@ -40,13 +35,13 @@ namespace VirtualLaboratory.Lab3
             Uplus = _dataProvider.GetDataTaskOne(variant, "Uр+");
             Uminus = _dataProvider.GetDataTaskOne(variant, "Uр-");
             
-            _magneticData = new Dictionary<int, MagneticData>();
-            
             int[] I_values = { 10, 20, 30, 40, 50 };
-            foreach (int I in I_values)
+            _magneticData = new MagneticData[I_values.Length];
+
+            for (int i = 0; i < I_values.Length; i++)
             {
-                string requestString = $"Ізр={I}мА";
-                _magneticData.Add(I, _dataProvider.GetDataTaskTwo(variant, requestString));
+                string requestString = $"Ізр={I_values[i]}мА";
+                _magneticData[i] = _dataProvider.GetDataTaskTwo(variant, requestString);
             }
         }
         

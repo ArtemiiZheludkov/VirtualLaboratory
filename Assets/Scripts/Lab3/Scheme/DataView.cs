@@ -8,7 +8,7 @@ namespace VirtualLaboratory.Lab3
     {
         [SerializeField] private DigitalMeasurer _V1Measurer;
         [SerializeField] private DigitalMeasurer _V2Measurer;
-        [SerializeField] private DigitalMeasurer _ImagMeasurer;
+        [SerializeField] private MagneticController _ImagMeasurer;
 
         public void Init()
         {

@@ -46,7 +46,22 @@ namespace VirtualLaboratory
             _slider.value = _minValue;
             SetI();
         }
+
+        public void EnableInteractivity()
+        {
+            _slider.interactable = true;
+        }
         
+        public void DisableInteractivity()
+        {
+            _slider.interactable = false;
+        }
+
+        public void SetValue(float value)
+        {
+            _slider.value = (value * _denominator) + _offset;
+        }
+
         public void OnSliderMove() => SetI();
 
         private void SetI()
