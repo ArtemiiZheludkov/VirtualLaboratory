@@ -23,7 +23,7 @@ namespace VirtualLaboratory.Lab3
             base.StartClicked();
             
             _dataContainer.Init(_variantChoiser.VariantNumber);
-            _experimentController.Init(_dataContainer, _currentSource);
+            _experimentController.Init(_dataContainer, _currentSource, _variantChoiser.VariantNumber);
         } 
     }
 }

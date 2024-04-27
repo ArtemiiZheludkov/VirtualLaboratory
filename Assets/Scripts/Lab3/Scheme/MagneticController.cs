@@ -37,13 +37,13 @@ namespace VirtualLaboratory.Lab3
 
         protected override void StartClicked()
         {
-            _slider.value = 1;
+            _slider.value = 0;
             base.StartClicked();
         }
 
         protected override void StopClicked()
         {
-            _slider.value = 0;
+            _slider.value = 1;
             base.StopClicked();
         }
     }

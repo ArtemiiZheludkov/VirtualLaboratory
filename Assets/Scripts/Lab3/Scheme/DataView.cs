@@ -8,7 +8,14 @@ namespace VirtualLaboratory.Lab3
     {
         [SerializeField] private DigitalMeasurer _V1Measurer;
         [SerializeField] private DigitalMeasurer _V2Measurer;
-        [SerializeField] private MagneticController _ImagMeasurer;
+        
+        private MagneticController _ImagMeasurer;
+
+        public void Init(MagneticController ImagMeasurer)
+        {
+            _ImagMeasurer = ImagMeasurer;
+            Init();
+        }
 
         public void Init()
         {
@@ -18,7 +25,7 @@ namespace VirtualLaboratory.Lab3
 
         public void UpdateScheme(params float[] values)
         {
-            UpdateView(values[0], values[1], values[3]);
+            UpdateView(values[0], values[1], values[2]);
         }
         
         private void UpdateView(float V1, float V2, float Imag)
