@@ -12,7 +12,7 @@ namespace VirtualLaboratory
         private Action OnStartClicked; 
         private Action OnStopClicked;
 
-        public void Init(Action onStartClicked, Action onStopClicked)
+        public virtual void Init(Action onStartClicked, Action onStopClicked)
         {
             OnStartClicked = onStartClicked;
             OnStopClicked = onStopClicked;
@@ -27,19 +27,19 @@ namespace VirtualLaboratory
         public void SetStart() => StopClicked();
         public void SetStop() => StartClicked();
 
-        public void EnableInteractivity()
+        public virtual void EnableInteractivity()
         {
             _start.interactable = true;
             _stop.interactable = true;
         }
         
-        public void DisableInteractivity()
+        public virtual void DisableInteractivity()
         {
             _start.interactable = false;
             _stop.interactable = false;
         }
         
-        private void StartClicked()
+        protected virtual void StartClicked()
         {
             _start.gameObject.SetActive(false);
             _stop.gameObject.SetActive(true);
@@ -47,7 +47,7 @@ namespace VirtualLaboratory
             OnStartClicked?.Invoke();
         }
         
-        private void StopClicked()
+        protected virtual void StopClicked()
         {
             _start.gameObject.SetActive(true);
             _stop.gameObject.SetActive(false);

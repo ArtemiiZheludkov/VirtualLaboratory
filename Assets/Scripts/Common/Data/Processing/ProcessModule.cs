@@ -35,7 +35,7 @@ namespace VirtualLaboratory
             _graph.ClearGraph();
             _resultView.Clear();
         }
-        
+
         protected abstract (float[], float[]) PrepareData(float[] x_array, float[] y_array);
 
         protected abstract void ProcessData(float[] x_array, float[] y_array);

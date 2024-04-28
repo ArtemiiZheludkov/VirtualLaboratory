@@ -7,8 +7,6 @@ namespace VirtualLaboratory
     {
         [SerializeField] private TMP_Text _valueText;
         
-        private float _minValue, _maxValue;
-        
         public void Init()
         {
             _valueText.text = "0.0";

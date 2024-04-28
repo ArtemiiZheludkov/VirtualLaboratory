@@ -8,7 +8,7 @@ namespace VirtualLaboratory
     {
         [SerializeField] private float _minValue = 0f;
         [SerializeField] private float _maxValue;
-        [Min(1)][SerializeField] private float _denominator;
+        [Min(0.01f)][SerializeField] private float _denominator;
         [SerializeField] private float _offset = 0f;
         [SerializeField] private Slider _slider;
         [SerializeField] private TMP_Text _maxI;
@@ -46,7 +46,22 @@ namespace VirtualLaboratory
             _slider.value = _minValue;
             SetI();
         }
+
+        public void EnableInteractivity()
+        {
+            _slider.interactable = true;
+        }
         
+        public void DisableInteractivity()
+        {
+            _slider.interactable = false;
+        }
+
+        public void SetValue(float value)
+        {
+            _slider.value = (value * _denominator) + _offset;
+        }
+
         public void OnSliderMove() => SetI();
 
         private void SetI()
