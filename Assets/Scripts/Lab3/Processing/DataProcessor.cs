@@ -13,7 +13,6 @@ namespace VirtualLaboratory.Lab3
         private DataContainer _data;
         private int _currentIz;
         private bool _magneticActivated;
-        private float a, c, d;
 
         public void Init(DataContainer data, Graph graph, int variant)
         {
@@ -21,33 +20,14 @@ namespace VirtualLaboratory.Lab3
             _modules = _noMagneticModules;
             
             Init(graph);
-
-            if (variant == 1)
-            {
-                a = 0.05f;
-                c = 0.26f;
-                d = 0.3f;
-            }
-            else
-            {
-                a = 0.019f;
-                c = 0.1f;
-                d = 0.2f;
-            }
             
-            _addText.text = $"a={a} cm; c={c} cm; l=d={d} cm;";
-            
-            foreach (var processModule in _modules)
-            {
-                var module = (IHaveConstants)processModule;
-                if (module != null)
-                    module.SetConstants(a, c, d);
-            }
+            _addText.text = $"a={data.a} m; c={data.c} m; l=d={data.d} m;";
         }
 
         public void EnableProcessing(int currentIz)
         {
             _currentIz = currentIz;
+            DataContainer.Instance.currentIz = _currentIz;
             EnableProcessing();
         }
 

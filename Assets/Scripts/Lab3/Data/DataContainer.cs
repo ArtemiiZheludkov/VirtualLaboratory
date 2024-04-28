@@ -4,6 +4,11 @@ namespace VirtualLaboratory.Lab3
 {
     public class DataContainer
     {
+        public static DataContainer Instance { get; private set; }
+        
+        public float a, c, d;
+        public int currentIz;
+        
         public int MaxIndex => (Ip.Length - 1);
 
         private DataProvider _dataProvider = new();
@@ -15,8 +20,23 @@ namespace VirtualLaboratory.Lab3
 
         public void Init(int variant)
         {
+            Instance = this;
+            
             _dataProvider.LoadData(variant);
             LoadData(variant);
+            
+            if (variant == 1)
+            {
+                a = 0.05f;
+                c = 0.26f;
+                d = 0.3f;
+            }
+            else
+            {
+                a = 0.019f;
+                c = 0.1f;
+                d = 0.2f;
+            }
         }
         
         public float[] GetIp() => Ip;
