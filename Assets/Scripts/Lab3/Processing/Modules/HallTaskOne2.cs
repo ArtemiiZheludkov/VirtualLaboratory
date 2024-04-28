@@ -12,6 +12,12 @@ namespace VirtualLaboratory.Lab3
             _processor = new LeastSquares();
         }
         
+        public override void Enable(float[] x_array, float[] y_array)
+        {
+            base.Enable(x_array, y_array);
+            _graph.SetAxisName("U (mV)", "Iзр (мА)");
+        }
+        
         protected override (float[], float[]) PrepareData(float[] x_array, float[] y_array)
         {
             return (x_array, y_array);

@@ -1,24 +1,26 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace VirtualLaboratory.Lab3
 {
-    public class HallTaskTwo : ProcessModule
+    public class HallTaskThree : ProcessModule
     {
         private float a, I, sigma;
-        private string alpha = "\u03B1";
+        private float e = 1.602176487e-19f;
+        private float m = 9.1093856e-31f;
+        
         private LeastSquares _processor;
+        DataContainer dataContainer;
 
         private void SetConstants()
         {
-            DataContainer data = DataContainer.Instance;
+            dataContainer = DataContainer.Instance;
             
-            a = data.a;
-            I = data.currentIz;
+            a = dataContainer.a;
+            I = dataContainer.currentIz;
             
-            int index = (data.currentIz / 10) - 1;
-            float U = (data.Uplus[index] - data.Uminus[index]) / 2f;
-            float ro = ((U * a * data.c) / (data.Ip[index] * data.d)) * 1000f;
+            int index = (dataContainer.currentIz / 10) - 1;
+            float U = (dataContainer.Uplus[index] - dataContainer.Uminus[index]) / 2f;
+            float ro = ((U * a * dataContainer.c) / (dataContainer.Ip[index] * dataContainer.d)) * 1000f;
             sigma = 1 / ro;
         }
         
@@ -27,7 +29,7 @@ namespace VirtualLaboratory.Lab3
             base.Init(graph, resultView);
             _processor = new LeastSquares();
         }
-
+        
         public override void Enable(float[] x_array, float[] y_array)
         {
             base.Enable(x_array, y_array);
@@ -37,7 +39,6 @@ namespace VirtualLaboratory.Lab3
         protected override (float[], float[]) PrepareData(float[] x_array, float[] y_array)
         {
             return (x_array, y_array);
-            
         }
 
         protected override void ProcessData(float[] x_array, float[] y_array)
@@ -59,19 +60,25 @@ namespace VirtualLaboratory.Lab3
 
         protected override void ShowProcessResult()
         {
-            float e = 1.6e-19f;
+            ref MagneticData data = ref dataContainer.GetMagneticData(dataContainer.currentIz);
             
             float R = (a * _processor.A) / (I / 1000f);
-            float n = 1 / (e * R);
-            float my = R * sigma;
+            float[] w = new float[data.B.Length];
 
-            string text1 = $"y = {alpha}*x + b";
+            for (int i = 0; i < w.Length; i++)
+                w[i] = (e/m) * data.B[i];
 
-            string text2 = $"U=(R<sub>H</sub>*B*I)/a => R<sub>H</sub>=(a*{alpha})/I= "
-                           + R.ToString("#0.00") +" (Om)";
+            string text1 = "R<sub>H</sub>=" +R.ToString("#0.00") +" (Om); " 
+                           +"σ<sub>H</sub>=" +sigma.ToString("#0.000") +" (1/Om*cm); ";
+
+            string text2 = "ω=e*B/m (рад/с) => " 
+                           +$"ω<sub>{data.B[0]}</sub>=" +w[0].ToString("#0.00e+0") +"; ";
             
-            string text3 = "n=1/(e*R<sub>H</sub>)=" + n.ToString("#0.00e+0") +" (сm<sup>-3</sup>)";
-            string text4 = "μ=R<sub>H</sub>*σ=" + my.ToString("#0.00") +" (сm<sup>2</sup>/B*c)";
+            string text3 = $"ω<sub>{data.B[1]}</sub>=" +w[1].ToString("#0.00e+0") + "; "
+                           +$"ω<sub>{data.B[2]}</sub>=" +w[2].ToString("#0.00e+0") +"; ";
+
+            string text4 = $"ω<sub>{data.B[3]}</sub>=" +w[3].ToString("#0.00e+0") + "; "
+                           +$"ω<sub>{data.B[4]}</sub>=" +w[4].ToString("#0.00e+0") + ";";
 
             _resultView.AddTextLine(text1);
             _resultView.AddTextLine(text2);
