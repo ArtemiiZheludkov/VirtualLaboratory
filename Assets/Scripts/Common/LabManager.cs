@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace VirtualLaboratory
 {
@@ -9,34 +10,48 @@ namespace VirtualLaboratory
         [SerializeField] protected CurrentSource _currentSource;
         [SerializeField] protected ControlButton _controlButton;
         [SerializeField] protected GameObject _blockPanel;
-        
-        private void Start()
-        {
-            Init();
-        }
+        [SerializeField] private Button _homeButton;
 
-        protected abstract CurrentInput GetCurrentInput();
+        private MenuManager _menu;
 
-        protected virtual void Init()
+        public void Init(MenuManager menuManager)
         {
+            _menu = menuManager;
+            
             _variantChoiser.Init();
             _blockPanel.gameObject.SetActive(true);
             _controlButton.Init(StartClicked, StopClicked);
             _currentSource.Init(GetCurrentInput());
+            
+            _homeButton.onClick.RemoveAllListeners();
+            _homeButton.onClick.AddListener(OnHomeClicked);
+            
+            OnInit();
         }
 
-        protected virtual void StartClicked()
+        public void SetStart() => _controlButton.SetStart();
+        
+        private void StartClicked()
         {
             _variantChoiser.Disable();
             _currentSource.StartGauge();
             _blockPanel.gameObject.SetActive(false);
+            OnStart();
         }
         
-        protected virtual void StopClicked()
+        private void StopClicked()
         {
             _variantChoiser.Enable();
             _currentSource.Stop();
             _blockPanel.gameObject.SetActive(true);
+            OnStop();
         }
+
+        private void OnHomeClicked() => _menu.Enable();
+        
+        protected abstract CurrentInput GetCurrentInput();
+        protected abstract void OnInit();
+        protected abstract void OnStart();
+        protected abstract void OnStop();
     }
 }

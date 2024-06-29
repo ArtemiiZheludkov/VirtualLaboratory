@@ -11,19 +11,19 @@ namespace VirtualLaboratory.Lab3
         
         protected override CurrentInput GetCurrentInput() => _experimentController;
         
-        protected override void Init()
+        protected override void OnInit()
         {
-            base.Init();
-            
             _dataContainer = new DataContainer();
         }
 
-        protected override void StartClicked()
+        protected override void OnStart()
         {
-            base.StartClicked();
-            
             _dataContainer.Init(_variantChoiser.VariantNumber);
             _experimentController.Init(_dataContainer, _currentSource, _variantChoiser.VariantNumber);
         } 
+        
+        protected override void OnStop()
+        {
+        }
     }
 }

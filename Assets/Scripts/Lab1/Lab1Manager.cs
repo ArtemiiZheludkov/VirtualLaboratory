@@ -17,27 +17,23 @@ namespace VirtualLaboratory.Lab1
 
         protected override CurrentInput GetCurrentInput() => _experimentController;
         
-        protected override void Init()
+        protected override void OnInit()
         {
-            base.Init();
-            
             _variantChoiser.Init(_materials);
             _dataContainer = new DataContainer();
+            Debug.Log("Lab1 init");
         }
 
-        protected override void StartClicked()
+        protected override void OnStart()
         {
-            base.StartClicked();
-
             MaterialLab material = _materials[_variantChoiser.VariantNumber - 1];
             material.Init(_starT);
             _dataContainer.LoadData(material, _starT, _stepT, _stopT);
             _experimentController.Init(_dataContainer, material, _starT, _stepT, _stopT);
         }
 
-        protected override void StopClicked()
+        protected override void OnStop()
         {
-            base.StopClicked();
             _experimentController.Stop();
         }
     }
