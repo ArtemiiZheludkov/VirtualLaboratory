@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VirtualLaboratory.Lab2
 {
     [Serializable]
-    public class DataView
+    public class DataView : IDataView
     {
         [SerializeField] private DigitalMeasurer _UzMeasurer;
         [SerializeField] private DigitalMeasurer _IzMeasurer;
@@ -15,7 +15,12 @@ namespace VirtualLaboratory.Lab2
             _IzMeasurer.Init();
         }
 
-        public void UpdateScheme(float Uz, float Iz)
+        public void UpdateScheme(params float[] values)
+        {
+            UpdateView(values[0], values[1]);
+        }
+        
+        private void UpdateView(float Uz, float Iz)
         {
             _UzMeasurer.SetValue(Uz);
             _IzMeasurer.SetValue(Iz);

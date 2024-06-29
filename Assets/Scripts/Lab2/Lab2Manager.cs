@@ -2,39 +2,28 @@
 
 namespace VirtualLaboratory.Lab2
 {
-    public class Lab2Manager : MonoBehaviour
+    public class Lab2Manager : LabManager
     {
-        [SerializeField] private DefaultVariantСhooser _variantChoiser;
+        [Header("Lab 2")]
         [SerializeField] private ExperimentController _experimentController;
-        [SerializeField] private CurrentSource _currentSource;
-        
-        [Header("MENU")]
-        [SerializeField] private GameObject _blockPanel;
-        [SerializeField] private ControlButton _controlButton;
         
         private DataContainer _dataContainer;
         
-        private void Start()
+        protected override CurrentInput GetCurrentInput() => _experimentController;
+        
+        protected override void OnInit()
         {
-            _variantChoiser.Init();
             _dataContainer = new DataContainer();
-            _blockPanel.gameObject.SetActive(true);
-            _controlButton.Init(StartClicked, StopClicked);
-            _currentSource.Init(_experimentController);
         }
 
-        private void StartClicked()
+        protected override void OnStart()
         {
-            _variantChoiser.Disable();
-            _dataContainer.Init(_variantChoiser.Variant);
+            _dataContainer.Init(_variantChoiser.VariantNumber);
             _experimentController.Init(_dataContainer);
-            _blockPanel.gameObject.SetActive(false);
         }
-        
-        private void StopClicked()
+
+        protected override void OnStop()
         {
-            _variantChoiser.Enable();
-            _blockPanel.gameObject.SetActive(true);
         }
     }
 }
