@@ -3,3 +3,6 @@ Diploma project - transfer of students' laboratory work to the programme. Progra
 
 Коротка демонстрація вимірів лабораторної роботи №1 (пришвидшено).
 [Дивитися демо](https://www.youtube.com/watch?v=rhGamew_GDU)
+
+Демонстрація роботи різних приладів/компонентів для лабораторної роботи.
+![Demo](demo_gif1.gif)
